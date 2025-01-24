@@ -5,7 +5,10 @@ import LandingPage from './components/landingPage/LandingPage';
 import Footer from './components/Footer/Footer';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import ProjectsCategories from './pages/ProjectsCategories';
 import Projects from './pages/Projects';
+import Project from './pages/Project';
+import { Canvas } from '@react-three/fiber'
 
 function App() {
   return (
@@ -15,7 +18,9 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage showElements={true} />} />
           <Route path="/about" element={<About />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/projectsCategories" element={<ProjectsCategories />} />
+          <Route path="/projects/:id" element={<Projects />} />
+          <Route path="/project/:id" element={<Project />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </BrowserRouter>

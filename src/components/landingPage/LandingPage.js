@@ -34,8 +34,6 @@ export default function LandingPage({ showElements }) {
       <Spline
         scene="https://prod.spline.design/n47SWpCNFv0OPbN6/scene.splinecode"
         onLoad={onLoad}
-      ///center
-
       />
       {showElements && <LandingElements />}
 
