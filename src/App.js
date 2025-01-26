@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import LandingPage from './components/landingPage/LandingPage';
@@ -8,7 +8,9 @@ import Contact from './pages/Contact';
 import ProjectsCategories from './pages/ProjectsCategories';
 import Projects from './pages/Projects';
 import Project from './pages/Project';
-import { Canvas } from '@react-three/fiber'
+import { Canvas } from "@react-three/fiber"
+import { Lightformer, Environment, OrbitControls, Stats } from "@react-three/drei"
+import Experience from './components/WebGl/Experience';
 
 function App() {
   return (
@@ -24,8 +26,29 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </BrowserRouter>
+      <Canvas
+        eventSource={document.getElementById("root")}
+        eventPrefix="client"
+        shadows
+        camera={{ position: [0, 0, 20], fov: 50 }}
+      >
+        <Environment preset="city">
+          <Lightformer
+            intensity={8}
+            position={[10, 5, 0]}
+            scale={[10, 50, 1]}
+            onUpdate={(self) => self.lookAt(0, 0, 0)}
+          />
+          <ambientLight />
+          <OrbitControls />
+          <Experience />
+          <Stats />
+        </Environment>
+      </Canvas>
     </div>
   );
 }
+
+
 
 export default App;

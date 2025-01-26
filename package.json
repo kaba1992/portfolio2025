@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@react-three/drei": "^9.121.3",
     "@react-three/fiber": "^8.17.12",
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.9.59",

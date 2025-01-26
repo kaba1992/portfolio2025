@@ -1,7 +1,7 @@
 import Spline from '@splinetool/react-spline';
-import React, { useRef, useState } from 'react';
-import { NavLink } from "react-router-dom";
-import { useFrame } from '@react-three/fiber';
+import React, { useRef, useState,useEffect } from 'react';
+import { Canvas, useFrame } from "@react-three/fiber"
+import { Html } from "@react-three/drei"
 import LandingElements from './LandingElements';
 
 export default function LandingPage({ showElements }) {
@@ -11,33 +11,28 @@ export default function LandingPage({ showElements }) {
     sphere.current = obj;
   }
 
-  // useFrame((delta) => {
-
-  //   if (sphere.current) {
-  //     sphere.current.rotation.y += 0.01 * delta;
-  //   }
-  // });
 
   return (
 
-    <div className='relative bg-red' style={{
-      width: '90%',
-      height: '85%',
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      border: '1px solid white',
-    }}
 
-    >
-      <Spline
-        scene="https://prod.spline.design/n47SWpCNFv0OPbN6/scene.splinecode"
-        onLoad={onLoad}
-      />
-      {showElements && <LandingElements />}
+        <div className='relative bg-red' style={{
+          width: '90%',
+          height: '85%',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          border: '1px solid white',
+        }}
+
+        >
+          <Spline
+            scene="https://prod.spline.design/n47SWpCNFv0OPbN6/scene.splinecode"
+            onLoad={onLoad}
+          />
+          {showElements && <LandingElements />}
 
 
-    </div>
+        </div>
   );
 }

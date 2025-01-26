@@ -19,7 +19,7 @@ export default function Projects() {
 
 
     return (
-        <div className='text-white flex flex-col justify-center gap-6 text-4xl font-bold  text-white  h-full w-full'>
+        <div className='flex flex-col items-center justify-center w-full h-full gap-6 text-4xl font-bold text-white'>
             {
                 projects.map((project, index) => {
                     return <NavLink to={`/project/${project.Id}`} key={index + project.Nom} className="hover:text-blue-400">{project && project.Nom}</NavLink>
