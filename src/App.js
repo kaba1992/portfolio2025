@@ -13,10 +13,10 @@ import { Lightformer, Environment, OrbitControls, Stats } from "@react-three/dre
 import Experience from './components/WebGl/Experience';
 
 function App() {
+  console.log('App.js');
   return (
     <div className="App">
       <BrowserRouter>
-        <Footer />
         <Routes>
           <Route path="/" element={<LandingPage showElements={true} />} />
           <Route path="/about" element={<About />} />
@@ -25,26 +25,30 @@ function App() {
           <Route path="/project/:id" element={<Project />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-      </BrowserRouter>
-      <Canvas
-        eventSource={document.getElementById("root")}
-        eventPrefix="client"
-        shadows
-        camera={{ position: [0, 0, 20], fov: 50 }}
-      >
-        <Environment preset="city">
-          <Lightformer
-            intensity={8}
-            position={[10, 5, 0]}
-            scale={[10, 50, 1]}
-            onUpdate={(self) => self.lookAt(0, 0, 0)}
-          />
-          <ambientLight />
-          <OrbitControls />
+        <Canvas
+          eventSource={document.getElementById("root")}
+          eventPrefix="client"
+          shadows
+          camera={{ position: [0, 0, 20], fov: 50 }}
+
+        >
+          <Environment preset="city">
+            <Lightformer
+              intensity={8}
+              position={[10, 5, 0]}
+              scale={[10, 50, 1]}
+              onUpdate={(self) => self.lookAt(0, 0, 0)}
+            />
+            <ambientLight />
+            <OrbitControls />
+            <Stats />
+          </Environment>
           <Experience />
-          <Stats />
-        </Environment>
-      </Canvas>
+        </Canvas>
+        <Footer />
+
+      </BrowserRouter>
+
     </div>
   );
 }
