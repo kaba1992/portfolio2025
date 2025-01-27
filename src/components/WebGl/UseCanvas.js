@@ -11,9 +11,13 @@ export const UseCanvas = () => {
     const canvas = document.createElement('canvas');;
     const context = canvas.getContext('2d');
 
+
+    const image = new Image();
+    image.src = '/images/brushs/brush2.png';
+
     canvas.style.position = 'absolute';
     canvas.style.top = 0;
-    canvas.style.zIndex = 5;
+    canvas.style.zIndex =-1;
     canvas.style.opacity = 0;
     document.body.appendChild(context.canvas);
     canvas.width = window.innerWidth;
@@ -21,12 +25,13 @@ export const UseCanvas = () => {
     context.fillStyle = 'white';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
+
     function createFlow(x1, y1, x2, y2, callback) {
         let dx = x2 - x1;
         let sx = 1;
         let dy = y2 - y1;
         let sy = 1;
-        let space = 0;
+
 
         if (dx < 0) {
             sx = -1;
@@ -41,42 +46,43 @@ export const UseCanvas = () => {
         dx = dx << 1;
         dy = dy << 1;
 
-        if (dy < dx) {
-            let fraction = dy - (dx >> 1);
+        let fraction, space = 0;
+        const MAX_ITERATIONS = 10000; // Fail-safe to prevent potential infinite loops
 
-            while (x1 != x2) {
+        if (dy < dx) {
+            fraction = dy - (dx >> 1);
+
+            for (let i = 0; i < MAX_ITERATIONS && x1 !== x2; i++) {
                 if (fraction >= 0) {
                     y1 += sy;
                     fraction -= dx;
                 }
-
                 fraction += dy;
                 x1 += sx;
 
-                if (space == spacing) {
+                if (space === spacing) {
                     callback(x1, y1);
                     space = 0;
                 } else {
-                    space += 1;
+                    space++;
                 }
             }
         } else {
-            let fraction = dx - (dy >> 1);
+            fraction = dx - (dy >> 1);
 
-            while (y1 != y2) {
+            for (let i = 0; i < MAX_ITERATIONS && y1 !== y2; i++) {
                 if (fraction >= 0) {
                     x1 += sx;
                     fraction -= dy;
                 }
-
                 fraction += dx;
                 y1 += sy;
 
-                if (space == spacing) {
+                if (space === spacing) {
                     callback(x1, y1);
                     space = 0;
                 } else {
-                    space += 1;
+                    space++;
                 }
             }
         }
@@ -102,24 +108,28 @@ export const UseCanvas = () => {
         }
 
 
-        if (drawing == true) {
+        // if (drawing == true) {
 
-            if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
-                createFlow(x, y, prevX, prevY, function (x, y) {
-                    console.log(x, y, prevX, prevY);
-                    context.beginPath();
-                    context.fillStyle = 'rgba(0, 0, 0, 1)';
-                    context.arc(x, y, size, 0, 2 * Math.PI, false);
-                    context.fill();
-                });
+        if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
+            createFlow(x, y, prevX, prevY, function (x, y) {
+                let newWidth = image.width * 2.5;
+                let newHeight = image.height * 2.5;
+                context.globalAlpha = 0.06
+                context.fillStyle = `rgba(0, 0, 0, 1)`;
+                
+                context.beginPath();
+                context.imageSmoothingEnabled = true;
+                context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
+                context.fill();
+            });
 
-                prevX = x;
-                prevY = y;
-            }
-        } else {
             prevX = x;
             prevY = y;
         }
+        // } else {
+        //     prevX = x;
+        //     prevY = y;
+        // }
     };
 
     window.onmousedown = function () {

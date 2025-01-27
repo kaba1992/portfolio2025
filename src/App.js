@@ -13,11 +13,13 @@ import { Lightformer, Environment, OrbitControls, Stats } from "@react-three/dre
 import Experience from './components/WebGl/Experience';
 
 function App() {
-  console.log('App.js');
+  let canShow = false;
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
+        <Footer />
+         <Routes>
           <Route path="/" element={<LandingPage showElements={true} />} />
           <Route path="/about" element={<About />} />
           <Route path="/projectsCategories" element={<ProjectsCategories />} />
@@ -45,7 +47,6 @@ function App() {
           </Environment>
           <Experience />
         </Canvas>
-        <Footer />
 
       </BrowserRouter>
 

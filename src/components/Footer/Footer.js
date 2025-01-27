@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <div className="flex items-center justify-around mx-2 my-2 text-white flex-co z-5" >
+        <div className=" absolute w-full flex items-center justify-around mx-2 my-2 text-white flex-co z-5" >
 
             <NavLink to="/" className="hover:text-blue-400">
                 <p className="text-white footer-home">Accueil</p>
