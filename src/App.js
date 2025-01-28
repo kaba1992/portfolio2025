@@ -11,15 +11,18 @@ import Project from './pages/Project';
 import { Canvas } from "@react-three/fiber"
 import { Lightformer, Environment, OrbitControls, Stats } from "@react-three/drei"
 import Experience from './components/WebGl/Experience';
+import Loading from './components/landingPage/Loading';
 
 function App() {
-  let canShow = false;
+
 
   return (
     <div className="App">
+
       <BrowserRouter>
+
         <Footer />
-         <Routes>
+        <Routes>
           <Route path="/" element={<LandingPage showElements={true} />} />
           <Route path="/about" element={<About />} />
           <Route path="/projectsCategories" element={<ProjectsCategories />} />
@@ -27,6 +30,7 @@ function App() {
           <Route path="/project/:id" element={<Project />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
+
         <Canvas
           eventSource={document.getElementById("root")}
           eventPrefix="client"
@@ -48,8 +52,11 @@ function App() {
           <Experience />
         </Canvas>
 
-      </BrowserRouter>
 
+      </BrowserRouter>
+    
+        <Loading />
+     
     </div>
   );
 }

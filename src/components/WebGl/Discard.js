@@ -42,7 +42,6 @@ export default function Discard() {
                 vertexShader={landingVertex}
                 fragmentShader={landingFragment}
                 transparent={true}
-
             />
         </mesh>
     );

@@ -15,7 +15,7 @@ export default function LandingPage({ showElements }) {
   }
 
   useEffect(() => {
-    gsap.set(landingPage.current, { autoAlpha: 0 });
+ 
 
   }, []);
 

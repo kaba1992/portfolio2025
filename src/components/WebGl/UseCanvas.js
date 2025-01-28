@@ -10,14 +10,14 @@ export const UseCanvas = () => {
     const size = 40;
     const canvas = document.createElement('canvas');;
     const context = canvas.getContext('2d');
-
+    let canDraw = false;
 
     const image = new Image();
     image.src = '/images/brushs/brush2.png';
 
     canvas.style.position = 'absolute';
     canvas.style.top = 0;
-    canvas.style.zIndex =-1;
+    canvas.style.zIndex = -1;
     canvas.style.opacity = 0;
     document.body.appendChild(context.canvas);
     canvas.width = window.innerWidth;
@@ -90,7 +90,7 @@ export const UseCanvas = () => {
         callback(x1, y1);
     }
     window.onmousemove = function (event) {
-        console.log('mouse move');
+        canDraw = true;
         x = parseInt(canvas.offsetLeft);
         y = parseInt(canvas.offsetTop);
 
@@ -108,38 +108,40 @@ export const UseCanvas = () => {
         }
 
 
-        // if (drawing == true) {
+        if (canDraw) {
 
-        if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
-            createFlow(x, y, prevX, prevY, function (x, y) {
-                let newWidth = image.width * 2.5;
-                let newHeight = image.height * 2.5;
-                context.globalAlpha = 0.06
-                context.fillStyle = `rgba(0, 0, 0, 1)`;
-                
-                context.beginPath();
-                context.imageSmoothingEnabled = true;
-                context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
-                context.fill();
-            });
+            if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
+                createFlow(x, y, prevX, prevY, function (x, y) {
+                    let newWidth = image.width * 2.5;
+                    let newHeight = image.height * 2.5;
+                    context.globalAlpha = 0.06
+                    context.fillStyle = `rgba(0, 0, 0, 1)`;
 
-            prevX = x;
-            prevY = y;
+                    context.beginPath();
+                    context.imageSmoothingEnabled = true;
+                    context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
+                    context.fill();
+                });
+
+                prevX = x;
+                prevY = y;
+            }
         }
-        // } else {
-        //     prevX = x;
-        //     prevY = y;
-        // }
-    };
 
-    window.onmousedown = function () {
-        drawing = true;
-    };
+            // } else {
+            //     prevX = x;
+            //     prevY = y;
+            // }
+        };
 
-    window.onmouseup = function () {
-        drawing = false;
-    };
+        window.onmousedown = function () {
+            drawing = true;
+        };
+
+        window.onmouseup = function () {
+            drawing = false;
+        };
 
 
-    return canvas;
-}; 
+        return canvas;
+    }; 
