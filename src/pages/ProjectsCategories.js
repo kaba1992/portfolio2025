@@ -10,7 +10,7 @@ gsap.registerPlugin(useGSAP);
 export default function ProjectsCategories() {
     const container = useRef();
 
-    
+
     const categories = [
         "WEB",
         "WEB-AR",
@@ -29,8 +29,8 @@ export default function ProjectsCategories() {
         for (let i = 0; i < container.current.children.length; i++) {
 
             const handleClick = contextSafe(() => {
-               console.log(typeof Array.from(container.current.children));
-               
+                console.log(typeof Array.from(container.current.children));
+
             });
             container.current.children[i].addEventListener('click', handleClick);
             gsap.fromTo(container.current.children[i],
@@ -65,7 +65,7 @@ export default function ProjectsCategories() {
                 }
             );
 
-      
+
         }
 
     }, { scope: container });

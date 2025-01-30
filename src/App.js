@@ -54,9 +54,9 @@ function App() {
 
 
       </BrowserRouter>
-    
-        <Loading />
-     
+
+      <Loading />
+
     </div>
   );
 }

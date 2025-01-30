@@ -35,7 +35,7 @@ export default function Discard() {
 
 
     return (
-        <mesh>
+        <mesh >
             <planeGeometry args={[2, 2]} />
             <shaderMaterial
                 uniforms={uniforms}

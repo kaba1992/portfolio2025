@@ -128,20 +128,20 @@ export const UseCanvas = () => {
             }
         }
 
-            // } else {
-            //     prevX = x;
-            //     prevY = y;
-            // }
-        };
+        // } else {
+        //     prevX = x;
+        //     prevY = y;
+        // }
+    };
 
-        window.onmousedown = function () {
-            drawing = true;
-        };
+    window.onmousedown = function () {
+        drawing = true;
+    };
 
-        window.onmouseup = function () {
-            drawing = false;
-        };
+    window.onmouseup = function () {
+        drawing = false;
+    };
 
 
-        return canvas;
-    }; 
+    return canvas;
+}; 
