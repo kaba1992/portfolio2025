@@ -1,13 +1,14 @@
 import React from "react";
+import emitter from "../Utils/EventEmitter";
+import gsap from "gsap";
 
 export const UseCanvas = () => {
     let x = null;
     let y = null;
     let prevX = null;
     let prevY = null;
-    const spacing = 3;
-    let drawing = false;
-    const size = 40;
+    const spacing = 6;
+    let drawCount = 0;
     const canvas = document.createElement('canvas');;
     const context = canvas.getContext('2d');
     let canDraw = false;
@@ -24,6 +25,14 @@ export const UseCanvas = () => {
     canvas.height = window.innerHeight;
     context.fillStyle = 'white';
     context.fillRect(0, 0, canvas.width, canvas.height);
+
+    emitter.on('loadingComplete', (data) => {
+        canDraw = true;
+        if (x !== null && y !== null) {
+            prevX = x;
+            prevY = y;
+        }
+    });
 
 
     function createFlow(x1, y1, x2, y2, callback) {
@@ -90,25 +99,29 @@ export const UseCanvas = () => {
         callback(x1, y1);
     }
     window.onmousemove = function (event) {
-        canDraw = true;
-        x = parseInt(canvas.offsetLeft);
-        y = parseInt(canvas.offsetTop);
-
-        if (canvas.offsetParent != null) {
-            x += parseInt(canvas.offsetParent.offsetLeft);
-            y += parseInt(canvas.offsetParent.offsetTop);
-        }
-
-        if (navigator.appVersion.indexOf('MSIE') != -1) {
-            x = (event.clientX + document.body.scrollLeft) - x;
-            y = (event.clientY + document.body.scrollTop) - y;
-        } else {
-            x = event.pageX - x;
-            y = event.pageY - y;
-        }
-
-
         if (canDraw) {
+            drawCount++;
+            x = parseInt(canvas.offsetLeft);
+            y = parseInt(canvas.offsetTop);
+
+            if (canvas.offsetParent != null) {
+                x += parseInt(canvas.offsetParent.offsetLeft);
+                y += parseInt(canvas.offsetParent.offsetTop);
+            }
+
+            if (navigator.appVersion.indexOf('MSIE') != -1) {
+                x = (event.clientX + document.body.scrollLeft) - x;
+                y = (event.clientY + document.body.scrollTop) - y;
+            } else {
+                x = event.pageX - x;
+                y = event.pageY - y;
+            }
+
+
+            if (prevX === null || prevY === null) {
+                prevX = x;
+                prevY = y;
+            }
 
             if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
                 createFlow(x, y, prevX, prevY, function (x, y) {
@@ -126,21 +139,27 @@ export const UseCanvas = () => {
                 prevX = x;
                 prevY = y;
             }
+
         }
 
-        // } else {
-        //     prevX = x;
-        //     prevY = y;
-        // }
+
     };
 
-    window.onmousedown = function () {
-        drawing = true;
-    };
+    const checkDrawCountInterval = setInterval(() => {
+        if (drawCount > 2500) {
+            console.log("drawCount", drawCount);
 
-    window.onmouseup = function () {
-        drawing = false;
-    };
+            emitter.emit('revealCompleat', { loading: false });
+
+            emitter.all['revealCompleat'] = [];
+
+            window.onmousemove = null;
+            clearInterval(checkDrawCountInterval);
+        }
+    }, 500);
+
+
+
 
 
     return canvas;

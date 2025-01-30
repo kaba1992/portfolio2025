@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import emitter from '../Utils/EventEmitter';
+
 
 export default function Loading() {
     const [dotLoffie, setDotLottie] = useState(null);
@@ -8,20 +11,24 @@ export default function Loading() {
     useEffect(() => {
         if (dotLoffie) {
             dotLoffie.addEventListener('complete', () => {
-                gsap.to(loadingContainer.current, { autoAlpha: 0, duration: 1, ease: 'power2.inOut' });
+                gsap.to(loadingContainer.current, { autoAlpha: 0, duration: 1, ease: 'power2.inOut', onComplete: () => { 
+                    emitter.emit('loadingComplete', { loading: false }) 
+                    emitter.all['loadingComplete'] = [];
+                } });
             })
         }
 
         //clean
         return () => {
             if (dotLoffie) {
-                dotLoffie.removeEventListener('complete', () => {
-
-                });
+                dotLoffie.removeEventListener('complete', () => { });
             }
         };
     }, [dotLoffie]);
+
+
     return (
+
         <div className='absolute top-0 left-0 flex items-center justify-center w-full h-full bg-black loader z-999' ref={loadingContainer}>
             <DotLottieReact
                 src="https://lottie.host/cc3ee0fc-c017-4470-bfb6-c8712c0048d7/QBTpVIcl9a.lottie"

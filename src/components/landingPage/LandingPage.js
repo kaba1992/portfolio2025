@@ -3,7 +3,6 @@ import React, { useRef, useState,useEffect } from 'react';
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Html } from "@react-three/drei"
 import LandingElements from './LandingElements';
-import Event from '../Utils/Event.js';
 import gsap from 'gsap';
 
 export default function LandingPage({ showElements }) {
