@@ -1,14 +1,19 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { NavLink } from "react-router-dom";
 import Gravity, { MatterBody } from '../Utils/Gravity.js';
+import ProjectsCategories from '../../pages/ProjectsCategories.js';
+import Projects from './../../pages/Projects';
+import ProjectsData from '../Utils/Data.js';
 
 export default function LandingElements() {
+    const [projects, setProjects] = useState([]);
     const skills = [
         "WEB/WEB-AR",
         "CREATIVE",
         "FRONT-END",
         "DEVELOPER"
     ];
+    
     return (
         <>
             <div className=' w-full h-full absolute top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4 flex items-center justify-around '
@@ -41,17 +46,7 @@ export default function LandingElements() {
                 </Gravity>
             </div>
             <div className=' absolute top-2/4 left-3/4 transform -translate-x-2/4 -translate-y-2/4 flex items-center justify-around '>
-                <ul className="flex flex-col gap-6 text-4xl font-bold text-left text-white pointer-events-auto mx-16 ">
-                    <li>
-                        <NavLink to="/about" className="hover:text-blue-400">About</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/projectsCategories" className="hover:text-blue-400">Projects</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/contact" className="hover:text-blue-400">Contact</NavLink>
-                    </li>
-                </ul>
+                <ProjectsCategories />
             </div>
 
 

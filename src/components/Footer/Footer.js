@@ -7,9 +7,14 @@ export default function Footer() {
         <div className=" absolute w-full flex items-center justify-around mx-2 my-2 text-white flex-co z-5" >
 
             <NavLink to="/" className="hover:text-blue-400">
-                <p className="text-white footer-home">Accueil</p>
+                <p className="text-white footer-home">Kaba Ibrahima</p>
             </NavLink>
-            <p className="text-white">&copy; kaba ibrahima </p>
+            <NavLink to="/about" className="hover:text-blue-400">
+                <p className="text-white footer-home">About</p>
+            </NavLink>
+            <NavLink to="/contact" className="hover:text-blue-400">
+                <p className="text-white footer-home">Contact</p>
+            </NavLink>
 
             <div className="">
                 <ul className="flex gap-3">
