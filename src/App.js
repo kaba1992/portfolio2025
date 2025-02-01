@@ -25,8 +25,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage showElements={true} />} />
           <Route path="/about" element={<About />} />
-          <Route path="/projects/:id" element={<Projects />} />
-          <Route path="/project/:id/:catId?" element={<Project />} />
+          <Route path="/projects/:catId" element={<Projects />} />
+          <Route path="/project/:index/:catId?" element={<Project />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
 

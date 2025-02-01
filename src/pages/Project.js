@@ -1,39 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import ProjectsData from '../components/Utils/Data';
+import Projects from './Projects';
 
 export default function Project() {
-    const { id, catId } = useParams();
-    const [project, setProject] = useState([]);
+    const { index, catId } = useParams();
     const [projects, setProjects] = useState([]);
-    const { previous, setPrevious } = useState(null);
-    const { next, setNext } = useState(null);
+    const currentIndex = parseInt(index);
+    
 
     useEffect(() => {
-        setProject(
-            ProjectsData.filter((element) => element.Id === parseInt(id))
-        )
+
         setProjects(
             ProjectsData.filter((element) => element.Categorie === parseInt(catId))
         )
 
+    }, [catId])
 
-
-
-    }, [id, catId])
-
-    if (projects.length > 0) {
+    if (!projects.length || isNaN(currentIndex) || currentIndex < 0 || currentIndex >= projects.length) {
+        return <div className='text-2xl text-white'>Projet introuvable</div>;
     }
+
     return (
-        <div className='h-full w-full flex flex-col items-center justify-center gap-6 text-4xl font-bold text-white'>
-            <div className='text-white flex flex-col justify-center gap-6 text-4xl font-bold  text-white  h-full w-full'>
-                {project[0] && project[0].Nom}
+        <div className='flex flex-col items-center justify-center w-full h-full gap-6 text-4xl font-bold text-white'>
+            <div className='flex flex-col justify-center w-full h-full gap-6 text-4xl font-bold text-white'>
+                <div className='flex flex-col items-center justify-center w-full h-full gap-6 text-4xl font-bold text-white'>
+                    {projects[currentIndex]?.Nom}
+                </div>
             </div>
 
             <div className='flex justify-between w-full'>
-                <NavLink to={`/project/${(parseInt(id) - 1 + projects.length) % projects.length}`} className="hover:text-blue-400">Previous</NavLink>
-                <NavLink to={`/project/${(parseInt(id ) + 1 )  % projects.length }`} className="hover:text-blue-400">Next</NavLink>
+                <NavLink 
+                    to={`/project/${(currentIndex - 1 + projects.length) % projects.length}/${catId}`} 
+                    className="hover:text-blue-400"
+                >
+                    Précédent
+                </NavLink>
+
+                <NavLink 
+                    to={`/project/${(currentIndex + 1) % projects.length}/${catId}`} 
+                    className="hover:text-blue-400"
+                >
+                    Suivant
+                </NavLink>
             </div>
         </div>
-    )
+    );
 }
