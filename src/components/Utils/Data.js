@@ -2,26 +2,27 @@
 
 const ProjectsData = [
     {
+
         "Id": 0,
         "Categorie": 0,
-        "Nom": "Ol Lounge",
+        "Nom": "Sea Of Sharks",
+        "Description": "Lorem Ipsum",
+        "Technos": "Three.js,Vanilla.js",
+        "Lien": "https://seaofsharks.vercel.app/",
+        "Année": 2022,
+        "Video": "",
+        "Images": ""
+    },
+    {
+        "Id": 1,
+        "Categorie": 0,
+        "Nom": "Olympique Lyonnais",
         "Description": "Lorem Ipsum",
         "Technos": "Svelte,Supabase, Three.js",
         "Lien": "https",
         "Année": 2024,
         "Video": "olLounge",
         "Images": "https"
-    },
-    {
-        "Id": 1,
-        "Categorie": 0,
-        "Nom": "Intel Adversgame",
-        "Description": "Lorem Ipsum",
-        "Technos": "Svelte,Supabase",
-        "Lien": "https://jeuxintel2024.fr/",
-        "Année": 2024,
-        "Video": "",
-        "Images": ""
     },
     {
         "Id": 2,
@@ -37,18 +38,20 @@ const ProjectsData = [
     {
         "Id": 3,
         "Categorie": 0,
-        "Nom": "Sea Of Sharks",
+        "Nom": "Intel Adversegame",
         "Description": "Lorem Ipsum",
-        "Technos": "Three.js,Vanilla.js",
-        "Lien": "https://seaofsharks.vercel.app/",
-        "Année": 2022,
+        "Technos": "Svelte,Supabase",
+        "Lien": "https://jeuxintel2024.fr/",
+        "Année": 2024,
         "Video": "",
         "Images": ""
     },
+
+
     {
         "Id": 4,
         "Categorie": 4,
-        "Nom": "PixelDraw",
+        "Nom": "Pixel Draw",
         "Description": "Lorem Ipsum",
         "Technos": "Three.js,Vanilla.js",
         "Lien": "https://pixel-art-dun.vercel.app/",
@@ -70,7 +73,7 @@ const ProjectsData = [
     {
         "Id": 6,
         "Categorie": 1,
-        "Nom": "CenturyBox",
+        "Nom": "Century Box",
         "Description": "Lorem Ipsum",
         "Technos": "Svelte,8th-Wall,Three.js",
         "Lien": "https://ar.atomicdigital.design/centurybox_demopackaging/",
@@ -125,7 +128,7 @@ const ProjectsData = [
     {
         "Id": 11,
         "Categorie": 2,
-        "Nom": "Rabanne Phantomrefresh",
+        "Nom": "Rabanne Phantom",
         "Description": "Lorem Ipsum",
         "Technos": "Lens Studio,Vanilla.js",
         "Lien": "",
@@ -202,7 +205,7 @@ const ProjectsData = [
     {
         "Id": 19,
         "Categorie": 0,
-        "Nom": "Poke-810",
+        "Nom": "Poke 810",
         "Description": "Lorem Ipsum",
         "Technos": "Ruby-On-Rails,PostgreSQL",
         "Lien": "",
@@ -213,7 +216,7 @@ const ProjectsData = [
     {
         "Id": 20,
         "Categorie": 2,
-        "Nom": "OrangeRugby",
+        "Nom": "Orange Rugby",
         "Description": "Lorem Ipsum",
         "Technos": "Lens Studio,Vanilla.js",
         "Lien": "",
@@ -224,7 +227,7 @@ const ProjectsData = [
     {
         "Id": 21,
         "Categorie": 4,
-        "Nom": "SoundVisualisation",
+        "Nom": "Sound Visualisation",
         "Description": "Lorem Ipsum",
         "Technos": "Three.js,Vanilla.js",
         "Lien": "",
@@ -235,7 +238,7 @@ const ProjectsData = [
     {
         "Id": 22,
         "Categorie": 4,
-        "Nom": "HauntedHouse",
+        "Nom": "Haunted House",
         "Description": "Lorem Ipsum",
         "Technos": "Three.js,Vanilla.js",
         "Lien": "",
@@ -246,7 +249,7 @@ const ProjectsData = [
     {
         "Id": 23,
         "Categorie": 4,
-        "Nom": "DataVisuCiné",
+        "Nom": "Data Visualisation",
         "Description": "Lorem Ipsum",
         "Technos": "Three.js,Vanilla.js",
         "Lien": "",
@@ -264,7 +267,28 @@ const ProjectsData = [
         "Année": 2024,
         "Video": "",
         "Images": ""
+    },
+    {
+        "Id": 25,
+        "Categorie": 1,
+        "Nom": "Calvin Klein Chalk",
+        "Description": "Lorem Ipsum",
+        "Technos": "Svelte,8th-Wall,Three.js",
+        "Lien": "",
+        "Année": 2023,
+        "Video": "",
+        "Images": ""
+    },
+    {
+        "Id": 26,
+        "Categorie": 1,
+        "Nom": "New Year Operation",
+        "Description": "Lorem Ipsum",
+        "Technos": "Three.js,Vanilla.js,8th-wall",
+        "Lien": "https://ar.atomicdigital.design/newyear2025/",
+        "Année": 2024,
+        "Video": "",
+        "Images": ""
     }
 ]
-
 export default ProjectsData;

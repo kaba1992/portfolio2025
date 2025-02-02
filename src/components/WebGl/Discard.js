@@ -60,7 +60,7 @@ export default function Discard() {
         //         transparent={true}
         //     />
         // </mesh>
-null
+        null
     );
 
 }
