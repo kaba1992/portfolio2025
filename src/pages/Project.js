@@ -48,23 +48,23 @@ export default function Project() {
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-full gap-6 text-4xl font-bold text-white '>
-            <div className='md:flex xs:flex-col  items-center justify-center w-full h-full gap-6 text-white'>
-                <video width={width} height={height} autoPlay muted loop className='border-2 border-white' ref={videoRef}>
+            <div className='items-center justify-center text-white md:mx-20 gap- md:flex xs:flex-col'>
+                <video width={width} height={height} autoPlay muted loop className='border-2 border-white ' ref={videoRef}>
                     <source src={`/videos/${catId}/${projects[currentIndex]?.name.replace(/\s/g, '')}.mp4`} type="video/mp4" />
                 </video>
-                <div className='text-4xl font-bold text-white text-left flex flex-col items-center justify-center gap-6'>
-                    <h1>{projects[currentIndex]?.year}</h1>
-                    <p>{projects[currentIndex]?.stacks}</p>
-                    <p>{projects[currentIndex]?.description}</p>
+                <div className='flex flex-col items-center justify-center gap-6 mt-4 font-bold text-left text-white'>
+                    <h1 >{projects[currentIndex]?.year}</h1>
+                    <p className='text-sm'>{projects[currentIndex]?.stacks}</p>
+                    <p className='text-sm text-center'>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable</p>
                 </div>
             </div>
 
-            <div className='flex md:justify-around w-full xs:flex-col  items-center '>
+            <div className='flex flex-col items-center justify-center w-full md:justify-around md:flex-row '>
                 <h1 className='w-[400px]'>{projects[currentIndex]?.name}</h1>
                 <div className='flex items-center justify-center gap-6 w-[60px]'>
-                    <img onClick={handleGoPrevious} className="hover:text-blue-400 w-xs h-auto" src='/images/arrowsProject/fleche-gauche.png' />
+                    <img onClick={handleGoPrevious} className="h-auto hover:text-blue-400 w-xs" src='/images/arrowsProject/fleche-gauche.png' />
                     <span>{currentIndex + 1}/{projects.length}</span>
-                    <img onClick={handleGoNext} className="hover:text-blue-400 w-xs h-auto" src='/images/arrowsProject/fleche-droite.png'/>
+                    <img onClick={handleGoNext} className="h-auto hover:text-blue-400 w-xs" src='/images/arrowsProject/fleche-droite.png' />
                 </div>
             </div>
         </div>
