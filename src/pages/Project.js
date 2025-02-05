@@ -8,9 +8,10 @@ export default function Project() {
     const [projects, setProjects] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(parseInt(index));
     const [width, setWidth] = useState('');
-    const [height, setHeight] = useState('');
     let navigate = useNavigate();
     const videoRef = useRef(null);
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+    console.log(isMobile);
 
 
 
@@ -20,13 +21,19 @@ export default function Project() {
         setProjects(
             ProjectsData.filter((element) => element.categorie === parseInt(catId))
         )
-        setWidth(
-            catId === '1' || catId === '2' ? '350' : '937'
-        )
-        setHeight(
-            catId === '1' || catId === '2' ? '250' : '505'
-        )
-    }, [catId, currentIndex])
+        if (isMobile) {
+            setWidth(
+                catId === '1' || catId === '2' ? '170px' : '360px'
+            )
+        } else {
+            setWidth(
+                catId === '1' || catId === '2' ? '300px' : '837px'
+            )
+
+        }
+
+
+    }, [catId])
 
     const handleGoPrevious = () => {
         setCurrentIndex((currentIndex - 1 + projects.length) % projects.length);
@@ -47,24 +54,28 @@ export default function Project() {
 
 
     return (
-        <div className='flex flex-col items-center justify-center w-full h-full gap-6 text-4xl font-bold text-white '>
-            <div className='items-center justify-center text-white md:mx-20 gap- md:flex xs:flex-col'>
-                <video width={width} height={height} autoPlay muted loop className='border-2 border-white ' ref={videoRef}>
-                    <source src={`/videos/${catId}/${projects[currentIndex]?.name.replace(/\s/g, '')}.mp4`} type="video/mp4" />
-                </video>
-                <div className='flex flex-col items-center justify-center gap-6 mt-4 font-bold text-left text-white'>
+        <div className='flex flex-col items-center justify-center w-full h-full gap-6 text-4xl text-white '>
+            <div className='items-center justify-center text-white  gap-10 flex flex-col md:flex-row mt-20 w-[calc(100%-30px)] mx-[30px] md:w-[calc(100%-60px)] md:mx-[0px]'>
+
+                <div style={{ width: width, height: 'auto' }} className=''>
+                    <video autoPlay muted loop className='border-2 border-white ' ref={videoRef}>
+                        <source src={`/videos/${catId}/${projects[currentIndex]?.name.replace(/\s/g, '')}.mp4`} type="video/mp4" />
+                    </video>
+
+                </div>
+                <div className='flex flex-col items-center md:items-start md:self-start justify-center  gap-6 md:w-1/4 text-left text-white'>
                     <h1 >{projects[currentIndex]?.year}</h1>
-                    <p className='text-sm'>{projects[currentIndex]?.stacks}</p>
-                    <p className='text-sm text-center'>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable</p>
+                    <p className='text-base font-bold'>{projects[currentIndex]?.stacks}</p>
+                    <p className='text-xs text-left'>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable</p>
                 </div>
             </div>
 
-            <div className='flex flex-col items-center justify-center w-full md:justify-around md:flex-row '>
-                <h1 className='w-[400px]'>{projects[currentIndex]?.name}</h1>
-                <div className='flex items-center justify-center gap-6 w-[60px]'>
-                    <img onClick={handleGoPrevious} className="h-auto hover:text-blue-400 w-xs" src='/images/arrowsProject/fleche-gauche.png' />
-                    <span>{currentIndex + 1}/{projects.length}</span>
-                    <img onClick={handleGoNext} className="h-auto hover:text-blue-400 w-xs" src='/images/arrowsProject/fleche-droite.png' />
+            <div className='flex flex-col items-center justify-center md:justify-around md:flex-row w-[calc(100%-30px)] mx-[30px] md:w-[calc(100%-60px)] md:mx-[0px] mt-10'>
+                <h1 className='w-[700px] text-2xl md:text-5xl font-bold md:text-left'>{projects[currentIndex]?.name}</h1>
+                <div className='flex items-center justify-between gap-6 '>
+                    <img onClick={handleGoPrevious} className="h-auto hover:text-blue-400 w-[40px] md:w-[80px]" src='/images/arrowsProject/fleche-gauche.png' />
+                    <span className='text-xl md:text-4xl font-bold'>{currentIndex + 1}/{projects.length}</span>
+                    <img onClick={handleGoNext} className="h-auto hover:text-blue-400 w-[40px]  md:w-[80px]" src='/images/arrowsProject/fleche-droite.png' />
                 </div>
             </div>
         </div>

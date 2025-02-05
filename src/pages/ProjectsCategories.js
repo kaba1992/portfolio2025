@@ -22,7 +22,7 @@ export default function ProjectsCategories() {
     return (
         <>
 
-            <div className="" style={{  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+           
                 <h1 className="text-6xl font-bold text-white mb-8">Projects</h1>
                 <ul className="flex flex-col items-center justify-center w-full h-full gap-6 text-4xl font-bold text-white" ref={container}>
                     {categories.map((categorie, index) => {
@@ -30,7 +30,7 @@ export default function ProjectsCategories() {
                     })}
                 </ul>
 
-            </div>
+           
         </>
 
 

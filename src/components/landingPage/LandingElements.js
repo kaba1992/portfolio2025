@@ -20,14 +20,6 @@ export default function LandingElements() {
             >
                 <Gravity gravity={{ x: 0, y: 1 }} grabCursor={true} className="w-full h-full ">
 
-                    <MatterBody
-                        matterBodyOptions={{ friction: 0.5, restitution: 0.2 }}
-                        x="30%"
-                        y="40%"
-
-                    >
-                        <h1 className="text-6xl font-bold text-white cursor-grab">Ibrahima Kaba</h1>
-                    </MatterBody>
                     <div className="text-white  ">
                         {skills.map((skill, index) => (
                             <MatterBody
@@ -36,7 +28,7 @@ export default function LandingElements() {
                                 y={`${20 + index * 10}%`}
                                 key={index + skill}
                             >
-                                <div className="px-24 text-sm text-white bg-black rounded-full sm:text-2xl md:text-3xl hover:cursor-pointer  h-[90px] flex items-center justify-center shadow-categorieBox "
+                                <div className="px-12 md:px-24 text-sm text-white bg-black rounded-full text-2xl md:text-3xl hover:cursor-pointer  h-[45px] md:h-[90px] flex items-center justify-center shadow-categorieBox "
                                     key={index + skill}>{skill}</div>
                             </MatterBody>
                         ))}
@@ -45,7 +37,7 @@ export default function LandingElements() {
 
                 </Gravity>
             </div>
-            <div className=' absolute top-2/4 left-3/4 transform -translate-x-2/4 -translate-y-2/4 flex items-center justify-around '>
+            <div className=' absolute top-2/4 left-2/4 transform -translate-x-2/4 -translate-y-2/4 flex flex-col items-center justify-around '>
                 <ProjectsCategories />
             </div>
 
