@@ -22,6 +22,7 @@ function App() {
       <BrowserRouter>
 
         <Footer />
+
         <Routes>
           <Route path="/" element={<LandingPage showElements={true} />} />
           <Route path="/about" element={<About />} />
@@ -29,9 +30,11 @@ function App() {
           <Route path="/project/:index/:catId?" element={<Project />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-
-        <Canvas
+        
+      </BrowserRouter>
+      <Canvas
           eventSource={document.getElementById("root")}
+           className="canvas-three"
           eventPrefix="client"
           shadows
           camera={{ position: [0, 0, 20], fov: 50 }}
@@ -50,10 +53,6 @@ function App() {
           </Environment>
           <Experience />
         </Canvas>
-
-
-      </BrowserRouter>
-
       <Loading />
 
     </div>

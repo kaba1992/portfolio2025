@@ -8,13 +8,12 @@ import * as THREE from 'three';
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import emitter from "../Utils/EventEmitter";
-import { useLocation } from 'react-router-dom';
 
 export default function Discard() {
 
     const [landingFragment, setLandingFragment] = useState('');
     const [landingVertex, setLandingVertex] = useState('');
-    const location = useLocation();
+   
 
     const canvas = UseCanvas();
     const canvasTexture = new THREE.CanvasTexture(canvas);
@@ -33,9 +32,9 @@ export default function Discard() {
 
     useFrame((state, delta) => {
         canvasTexture.needsUpdate = true;
-
     });
     emitter.on('revealCompleat', (data) => {
+
         if (revealMesh.current) {
             revealMesh.current.visible = false;
         }

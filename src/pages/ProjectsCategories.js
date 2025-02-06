@@ -23,10 +23,10 @@ export default function ProjectsCategories() {
         <>
 
            
-                <h1 className="text-6xl font-bold text-white mb-8">Projects</h1>
+                <h1 className="mb-8 text-6xl font-bold text-white">Projects</h1>
                 <ul className="flex flex-col items-center justify-center w-full h-full gap-6 text-4xl font-bold text-white" ref={container}>
                     {categories.map((categorie, index) => {
-                        return <NavLink to={`/projects/${index}`} key={index + categorie} className="hover:text-blue-400 categories ">{categorie && categorie}</NavLink>
+                        return <NavLink to={`/projects/${index}`} key={index + categorie} className=" hover:text-blue-400 categories">{categorie && categorie}</NavLink>
                     })}
                 </ul>
 
