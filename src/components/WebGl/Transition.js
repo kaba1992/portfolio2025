@@ -1,13 +1,16 @@
-import React, { useRef, useEffect, useMemo, useState } from "react";
+import React, { useRef, useEffect, useMemo, useState, use } from "react";
 import axios from "axios";
-import { useTexture, useFBO } from "@react-three/drei";
+import { useTexture, useFBO, Box } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 import emitter from "../Utils/EventEmitter";
 import * as THREE from "three";
+import { useGSAP } from "@gsap/react";
+import { Scale } from "lucide-react";
 
 
-export default function Transition() {
+
+const Transition = React.memo(() => {
     const transitionMesh = useRef();
     const [transitionFragment, setTransitionFragment] = useState('');
     const [transitionVertex, setTransitionVertex] = useState('');
@@ -20,15 +23,27 @@ export default function Transition() {
         uProgress: { value: 1. },
     }), [transitionTexture, rendertargetTexture.texture]);
 
-    gsap.to(uniforms.uProgress, { value: 0, duration: 1, ease: 'power2.inOut', yoyo: true, repeat: -1, });
-    emitter.on('loadingComplete', (data) => {
-console.log('transitionCalled');
+    useGSAP(() => {
+        let loopTl;
+        emitter.on('transitionCalled', (data) => {
+            loopTl  = gsap.timeline({ repeat: 1, yoyo: true });
+            loopTl.to(uniforms.uProgress, { value: 0, duration: 1, ease: 'power2.inOut' });
+            console.log('transitionCalled');
+            
+        });
+        return () => {
+            loopTl.kill();
+        }
 
-    });
+
+
+    }, []);
+
+
+
 
     useFrame(({ gl, camera, scene }) => {
         // console.log(uniforms.uProgress.value);
-
         gl.setRenderTarget(rendertargetTexture);
         gl.render(scene, camera);
         gl.setRenderTarget(null);
@@ -38,12 +53,13 @@ console.log('transitionCalled');
     useEffect(() => {
         axios.get("/shaders/others/transitionFragment.glsl").then((response) => setTransitionFragment(response.data));
         axios.get("/shaders/others/transitionVertex.glsl").then((response) => setTransitionVertex(response.data));
-
     }, []);
 
     if (transitionFragment === '' || transitionVertex === '') return null;
 
+
     return (
+
         <mesh ref={transitionMesh} >
             <planeGeometry args={[2, 2]} />
             <shaderMaterial
@@ -54,4 +70,6 @@ console.log('transitionCalled');
             />
         </mesh>
     )
-}
+})
+
+export default Transition; 

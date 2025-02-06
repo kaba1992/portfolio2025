@@ -20,7 +20,7 @@ export default function LandingElements() {
             >
                 <Gravity gravity={{ x: 0, y: 1 }} grabCursor={true} className="w-full h-full ">
 
-                    <div className="text-white ">
+                    <div className="text-white pointer-events-auto">
                         {skills.map((skill, index) => (
                             <MatterBody
                                 matterBodyOptions={{ friction: 0.5, restitution: 0.2 }}
@@ -37,7 +37,7 @@ export default function LandingElements() {
 
                 </Gravity>
             </div>
-            <div className='absolute !z-20 flex flex-col items-center justify-around transform top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 '>
+            <div className='absolute flex flex-col items-center justify-around transform top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 '>
                 <ProjectsCategories />
             </div>
 

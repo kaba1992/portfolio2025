@@ -9,7 +9,8 @@ export default function Project() {
     const [projects, setProjects] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(parseInt(index));
     const [width, setWidth] = useState('');
-    let navigate = useNavigate();
+    const [canClick, setCanClick] = useState(true);
+    const navigate = useNavigate();
     const videoRef = useRef(null);
     let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
     console.log(isMobile);
@@ -36,21 +37,30 @@ export default function Project() {
 
     }, [catId])
 
-    const handleGoPrevious = () => {
+    const handleGoPrevious = async () => {
+        if (!canClick) return;
+        setCanClick(false);
         emitter.emit('transitionCalled');
         emitter.all['transitionCalled'] = [];
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         setCurrentIndex((currentIndex - 1 + projects.length) % projects.length);
         videoRef.current.load();
         navigate(`/project/${currentIndex}/${catId}`)
-
+        await new Promise((resolve) => setTimeout(resolve, 1300));
+        setCanClick(true);
     };
 
-    const handleGoNext = () => {
+    const handleGoNext = async () => {
+        if (!canClick) return;
+        setCanClick(false);
         emitter.emit('transitionCalled');
         emitter.all['transitionCalled'] = [];
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         setCurrentIndex((currentIndex + 1) % projects.length);
         videoRef.current.load();
         navigate(`/project/${currentIndex}/${catId}`)
+        await new Promise((resolve) => setTimeout(resolve, 1300));
+        setCanClick(true);
     };
 
     if (!projects.length || isNaN(currentIndex) || currentIndex < 0 || currentIndex >= projects.length) {
