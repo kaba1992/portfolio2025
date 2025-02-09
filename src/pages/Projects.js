@@ -6,6 +6,7 @@ import Project from './Project';
 import emitter from '../components/Utils/EventEmitter';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap'
+import { useBlurTransition } from '../components/Utils/useBlurTransition';
 
 export default function Projects() {
 
@@ -13,8 +14,8 @@ export default function Projects() {
     const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
     const [canClick, setCanClick] = useState(true);
-    const container = useRef()
-    const categorieItem = useRef()
+    const container = useRef(null)
+    const [isLoaded, setIsLoaded] = useState(false);
 
 
     const navigateTo = async (index, catId) => {
@@ -32,37 +33,19 @@ export default function Projects() {
 
 
     useEffect(() => {
-        setProjects(
-            ProjectsData.filter((element) => element.categorie === parseInt(catId))
-        )
+        const filteredProjects = ProjectsData.filter((element) => element.categorie === parseInt(catId));
+        setProjects(filteredProjects);
+        setIsLoaded(true);
 
     }, [catId])
-
-    useGSAP(async (context, contextSafe) => {
-        // gsap.set(container.current.children, { filter: "blur(100px)"})
-        const handleMouseEnter = contextSafe(() => {
-            gsap.fromTo(categorieItem.current, { filter: "blur(100px)" }, { filter: "blur(0px)", duration: 1, ease: "power1.inOut", stagger: 0.1 })
-        })
-       
-        categorieItem.current.addEventListener("mouseenter ", handleMouseEnter)
-
-        await new Promise((resolve) => setTimeout(resolve, 500))
-        gsap.fromTo(container.current.children, { filter: "blur(100px)" }, { filter: "blur(0px)", duration: 1, ease: "power1.inOut", stagger: 0.1 })
-
-        return () => {
-            // <-- cleanup
-            categorieItem.current.removeEventListener('mouseenter', handleMouseEnter);
-        };
-
-    }, { scope: container })
-
+    useBlurTransition(isLoaded, container, '.category-item')
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-full gap-6 font-bold text-white -z-1' ref={container}>
             {
                 projects.map((project, index) => {
-                    return <div ref={categorieItem} onClick={() => navigateTo(index, catId)} key={index + project.name} className="text-3xl cursor-pointer hover:text-blue-400 md:6xl blur-[100px]
-
+                    return <div onClick={() => navigateTo(index, catId)} key={index + project.name}
+                        className="category-item text-3xl cursor-pointer hover:text-blue-400 md:6xl blur-[100px]
                     ">{project && project.name}</div>
                 })
             }

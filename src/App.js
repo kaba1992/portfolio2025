@@ -29,8 +29,8 @@ function App() {
           <Route path="/project/:index/:catId?" element={<Project />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-        <Loading />
         <Experience />
+        <Loading />
       </BrowserRouter>
    
 

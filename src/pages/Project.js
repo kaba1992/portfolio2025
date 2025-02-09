@@ -13,7 +13,7 @@ export default function Project() {
     const navigate = useNavigate();
     const videoRef = useRef(null);
     let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-    console.log(isMobile);
+
 
 
 
@@ -67,6 +67,8 @@ export default function Project() {
         return <div className='text-2xl text-white'>Projet introuvable</div>;
     }
 
+    let projectHref = projects[currentIndex]?.link
+    const link = <a href={projectHref} target="_blank" className='text-xs text-left underline md:text-xl'>Visit</a>
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-full gap-6 text-4xl text-white '>
@@ -81,7 +83,8 @@ export default function Project() {
                 <div className='flex flex-col items-center justify-center gap-6 text-left text-white md:items-start md:self-start md:w-1/4'>
                     <h1 className='md:text-6xl' >{projects[currentIndex]?.year}</h1>
                     <p className='text-base font-bold md:text-2xl'>{projects[currentIndex]?.stacks}</p>
-                    <p className='text-xs text-left md:text-xl'>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable</p>
+                    <p className='text-xs text-left md:text-xl'>{projects[currentIndex]?.description}</p>
+                    {projects[currentIndex]?.link === "" ? null : link}
                 </div>
             </div>
 

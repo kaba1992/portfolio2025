@@ -13,7 +13,7 @@ export default function Discard() {
 
     const [landingFragment, setLandingFragment] = useState('');
     const [landingVertex, setLandingVertex] = useState('');
-   
+
 
     const canvas = UseCanvas();
     const canvasTexture = new THREE.CanvasTexture(canvas);
@@ -23,6 +23,7 @@ export default function Discard() {
     const uniforms = useMemo(() => ({
         uTexture: { value: revealtexture },
         uCanvasTexture: { value: canvasTexture },
+        uOpacityProg: { value: 1 }
     }), [canvasTexture, revealtexture]);
 
     useEffect(() => {
@@ -50,16 +51,16 @@ export default function Discard() {
 
     return (
 
-        // <mesh ref={revealMesh} >
-        //     <planeGeometry args={[2, 2]} />
-        //     <shaderMaterial
-        //         uniforms={uniforms}
-        //         vertexShader={landingVertex}
-        //         fragmentShader={landingFragment}
-        //         transparent={true}
-        //     />
-        // </mesh>
-        null
+        <mesh ref={revealMesh} >
+            <planeGeometry args={[2, 2]} />
+            <shaderMaterial
+                uniforms={uniforms}
+                vertexShader={landingVertex}
+                fragmentShader={landingFragment}
+                transparent={true}
+            />
+        </mesh>
+
     );
 
 }

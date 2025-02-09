@@ -18,7 +18,7 @@ export default function Experience() {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                zIndex: 999,
+                zIndex: 500,
                 pointerEvents: 'none'
             }}
             shadows

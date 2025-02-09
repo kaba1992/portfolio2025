@@ -11,10 +11,12 @@ export default function Loading() {
     useEffect(() => {
         if (dotLoffie) {
             dotLoffie.addEventListener('complete', () => {
-                gsap.to(loadingContainer.current, { autoAlpha: 0, duration: 1, ease: 'power2.inOut', onComplete: () => { 
-                    emitter.emit('loadingComplete', { loading: false }) 
-                    emitter.all['loadingComplete'] = [];
-                } });
+                gsap.to(loadingContainer.current, {
+                    autoAlpha: 0, duration: 1, ease: 'power2.inOut', onComplete: () => {
+                        emitter.emit('loadingComplete', { loading: false })
+                        emitter.all['loadingComplete'] = [];
+                    }
+                });
             })
         }
 
@@ -29,7 +31,16 @@ export default function Loading() {
 
     return (
 
-        <div className='absolute top-0 left-0 flex items-center justify-center w-full h-full bg-black loader z-999' ref={loadingContainer}>
+        <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 500,
+            pointerEvents: 'none',
+            backgroundColor: "#000000"
+        }} ref={loadingContainer}>
             <DotLottieReact
                 src="https://lottie.host/cc3ee0fc-c017-4470-bfb6-c8712c0048d7/QBTpVIcl9a.lottie"
                 autoplay
