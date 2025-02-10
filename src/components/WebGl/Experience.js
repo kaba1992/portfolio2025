@@ -23,7 +23,7 @@ export default function Experience() {
             }}
             shadows
             camera={{ position: [0, 0, -5], fov: 50 }}>
-            <Discard />
+            {/* <Discard /> */}
             <Transition />
             <Stats />
         </Canvas>
