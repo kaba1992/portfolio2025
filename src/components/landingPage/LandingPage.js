@@ -34,10 +34,10 @@ export default function LandingPage({ showElements }) {
     }}
       ref={landingPage}
     >
-      <Spline
+      {/* <Spline
         scene="https://prod.spline.design/n47SWpCNFv0OPbN6/scene.splinecode"
         onLoad={onLoad}
-      />
+      /> */}
       {showElements && <LandingElements />}
 
 

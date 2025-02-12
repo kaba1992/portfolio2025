@@ -13,8 +13,7 @@ export default function Discard() {
 
     const [landingFragment, setLandingFragment] = useState('');
     const [landingVertex, setLandingVertex] = useState('');
-
-
+ 
     const canvas = UseCanvas();
     const canvasTexture = new THREE.CanvasTexture(canvas);
     const revealtexture = useTexture("/images/reveal.jpg");
@@ -23,7 +22,7 @@ export default function Discard() {
     const uniforms = useMemo(() => ({
         uTexture: { value: revealtexture },
         uCanvasTexture: { value: canvasTexture },
-        uOpacityProg: { value: 1 }
+        uOpacity: { value: 1 }
     }), [canvasTexture, revealtexture]);
 
     useEffect(() => {
@@ -33,11 +32,14 @@ export default function Discard() {
 
     useFrame((state, delta) => {
         canvasTexture.needsUpdate = true;
-    });
-    emitter.on('revealCompleat', (data) => {
+        console.log(uniforms.uOpacity.value);
 
-        if (revealMesh.current) {
-            revealMesh.current.visible = false;
+
+    });
+
+    emitter.on('revealCompleat', (data) => {
+        if (revealMesh.current ) {
+            gsap.to(revealMesh.current.material.uniforms.uOpacity, { value: 0, duration: 1.5 });
         }
     });
 
@@ -58,6 +60,7 @@ export default function Discard() {
                 vertexShader={landingVertex}
                 fragmentShader={landingFragment}
                 transparent={true}
+
             />
         </mesh>
 

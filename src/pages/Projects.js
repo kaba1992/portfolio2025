@@ -41,15 +41,14 @@ export default function Projects() {
     useBlurTransition(isLoaded, container, '.category-item')
 
     return (
-        <div className='flex flex-col items-start justify-center w-full h-full gap-10 font-bold text-white text-left   -z-1' ref={container}>
+        <div className='flex flex-col items-start justify-center w-full h-full gap-10 font-bold text-left text-white -z-1' ref={container}>
             {
                 projects.map((project, index) => {
-                    return <div className='flex justify-around items-center w-full category-item  blur-[100px] relative before:absolute before:h-1 before:w-full before:bg-white before:-bottom-5'>
-                        <p onClick={() => navigateTo(index, catId)} key={index + project.name}
-                            className=" text-3xl cursor-pointer hover:text-blue-400 md:text-5xl  w-[600px]
+                    return <div key={index + project.name} className='flex justify-around items-center w-full  category-item  blur-[100px] relative before:absolute before:h-0.5 before:w-11/12 md:before:w-8/12 before:bg-white before:-bottom-5'>
+                        <p onClick={() => navigateTo(index, catId)}
+                            className=" text-2xl cursor-pointer hover:text-blue-400 md:text-5xl w-3/4  md:w-[600px]
                     ">{project && project.name}</p>
-                        <span className="text-3xl cursor-pointer hover:text-blue-400 md:text-5xl 
-                    ">{index + 1}</span>
+                        <span className="text-2xl cursor-pointer hover:text-blue-400 md:text-5xl " >{index + 1}</span>
 
                     </div>
                 })

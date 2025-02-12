@@ -100,7 +100,6 @@ export const UseCanvas = () => {
     }
     window.onmousemove = function (event) {
         if (canDraw) {
-            drawCount++;
             x = parseInt(canvas.offsetLeft);
             y = parseInt(canvas.offsetTop);
 
@@ -125,6 +124,8 @@ export const UseCanvas = () => {
 
             if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
                 createFlow(x, y, prevX, prevY, function (x, y) {
+                    if (!canDraw) return;
+                    drawCount++;
                     let newWidth = image.width * 2.5;
                     let newHeight = image.height * 2.5;
                     context.globalAlpha = 0.06
@@ -134,6 +135,16 @@ export const UseCanvas = () => {
                     context.imageSmoothingEnabled = true;
                     context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
                     context.fill();
+                    if (drawCount > 1000) {
+                        console.log("drawCount", drawCount);
+
+                        emitter.emit('revealCompleat', { loading: false });
+
+                        emitter.all['revealCompleat'] = [];
+
+                        window.onmousemove = null;
+                     
+                    }
                 });
 
                 prevX = x;
@@ -144,23 +155,6 @@ export const UseCanvas = () => {
 
 
     };
-
-    const checkDrawCountInterval = setInterval(() => {
-        if (drawCount > 2500) {
-            console.log("drawCount", drawCount);
-
-            emitter.emit('revealCompleat', { loading: false });
-
-            emitter.all['revealCompleat'] = [];
-
-            window.onmousemove = null;
-            clearInterval(checkDrawCountInterval);
-        }
-    }, 500);
-
-
-
-
 
     return canvas;
 }; 

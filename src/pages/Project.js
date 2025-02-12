@@ -91,9 +91,9 @@ export default function Project() {
             <div className='flex flex-col items-center justify-center md:justify-around md:flex-row w-[calc(100%-30px)] mx-[30px] md:w-[calc(100%-60px)] md:mx-[0px] mt-10'>
                 <h1 className='w-[700px] text-2xl md:text-5xl font-bold md:text-left'>{projects[currentIndex]?.name}</h1>
                 <div className='flex items-center justify-between gap-6 '>
-                    <img onClick={handleGoPrevious} className="h-auto hover:text-blue-400 w-[40px] md:w-[80px]" src='/images/arrowsProject/fleche-gauche.png' />
+                    <img onClick={handleGoPrevious} className="h-auto hover:text-blue-400 w-[40px] md:w-[80px]" src='/images/arrowsProject/arrowLeft.png' />
                     <span className='text-xl font-bold md:text-4xl'>{currentIndex + 1}/{projects.length}</span>
-                    <img onClick={handleGoNext} className="h-auto hover:text-blue-400 w-[40px]  md:w-[80px]" src='/images/arrowsProject/fleche-droite.png' />
+                    <img onClick={handleGoNext} className="h-auto hover:text-blue-400 w-[40px]  md:w-[80px]" src='/images/arrowsProject/arrowRight.png' />
                 </div>
             </div>
         </div>
