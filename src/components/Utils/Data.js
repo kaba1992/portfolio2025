@@ -149,7 +149,7 @@ const ProjectsData = [
         "id": 16,
         "categorie": 0,
         "name": "32 Bits-Burger",
-        "description": "À l’occasion de l’ouverture du restaurant 32 Bits Burger à Montpellier, j'ai conçu un site vitrine pour présenter le concept, le menu et les informations pratiques du restaurant. Ce site offre une expérience simple et dynamique pour attirer les clients et leur donner toutes les informations nécessaires pour visiter le restaurant.",
+        "description": "À l’occasion de l’ouverture du restaurant 32 Bits Burger à Montpellier, j'ai conçu un site vitrine pour présenter le concept, le menu et les informations pratiques du restaurant. Ce site contient aussi toutes les informations nécessaires pour visiter le restaurant.",
         "stacks": "Vanilla.js",
         "link": "",
         "year": 2023

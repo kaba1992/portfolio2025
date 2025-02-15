@@ -25,7 +25,7 @@ export default function Project() {
         )
         if (isMobile) {
             setWidth(
-                catId === '1' || catId === '2' ? '170px' : '360px'
+                catId === '1' || catId === '2' ? '145px' : '348px'
             )
         } else {
             setWidth(
@@ -72,15 +72,15 @@ export default function Project() {
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-full gap-6 text-4xl text-white '>
-            <div className='items-center justify-center text-white  gap-10 flex flex-col md:flex-row mt-20 w-[calc(100%-30px)] mx-[30px] md:w-[calc(100%-60px)] md:mx-[0px]'>
-
+            <div className='items-center md:items-start justify-center text-white  gap-10 flex flex-col 
+            md:flex-row mt-20 w-[calc(100%-30px)] mx-[30px] md:w-[calc(100%-60px)] md:mx-[0px] md:h-[500px]'>
                 <div style={{ width: width, height: 'auto' }} className=''>
                     <video autoPlay muted loop className='border-2 border-white ' ref={videoRef}>
                         <source src={`/videos/${catId}/${projects[currentIndex]?.name.replace(/\s/g, '')}.mp4`} type="video/mp4" />
                     </video>
 
                 </div>
-                <div className='flex flex-col items-center justify-center gap-6 text-left text-white md:items-start md:self-start md:w-1/4'>
+                <div className='flex flex-col items-center justify-center gap-3 md:gap-6 text-left text-white md:items-start md:self-start md:w-2/6'>
                     <h1 className='md:text-6xl' >{projects[currentIndex]?.year}</h1>
                     <p className='text-base font-bold md:text-2xl'>{projects[currentIndex]?.stacks}</p>
                     <p className='text-xs text-left md:text-xl'>{projects[currentIndex]?.description}</p>
@@ -88,7 +88,7 @@ export default function Project() {
                 </div>
             </div>
 
-            <div className='flex flex-col items-center justify-center md:justify-around md:flex-row w-[calc(100%-30px)] mx-[30px] md:w-[calc(100%-60px)] md:mx-[0px] mt-10'>
+            <div className='flex flex-col items-center justify-center md:justify-around md:flex-row w-[calc(100%-30px)] mx-[30px] md:w-[calc(100%-60px)] md:mx-[0px] md:mt-20'>
                 <h1 className='w-[700px] text-2xl md:text-5xl font-bold md:text-left'>{projects[currentIndex]?.name}</h1>
                 <div className='flex items-center justify-between gap-6 '>
                     <img onClick={handleGoPrevious} className="h-auto hover:text-blue-400 w-[40px] md:w-[80px]" src='/images/arrowsProject/arrowLeft.png' />

@@ -39,7 +39,9 @@ export default function Discard() {
 
     emitter.on('revealCompleat', (data) => {
         if (revealMesh.current ) {
-            gsap.to(revealMesh.current.material.uniforms.uOpacity, { value: 0, duration: 1.5 });
+            gsap.to(revealMesh.current.material.uniforms.uOpacity, { value: 0, duration: 1.5 ,onComplete:()=>{
+                canvas.style.display = 'none';
+            }});
         }
     });
 

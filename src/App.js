@@ -8,11 +8,12 @@ import Contact from './pages/Contact';
 import ProjectsCategories from './pages/ProjectsCategories';
 import Projects from './pages/Projects';
 import Project from './pages/Project';
-
+import MobileNav from './components/Nav/MobileNav';
 import Experience from './components/WebGl/Experience';
 import Loading from './components/landingPage/Loading';
 
 function App() {
+  let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
 
 
   return (
@@ -20,7 +21,7 @@ function App() {
 
       <BrowserRouter>
 
-        <Footer />
+     {  isMobile? <MobileNav /> : <Footer />}
 
         <Routes>
           <Route path="/" element={<LandingPage showElements={true} />} />

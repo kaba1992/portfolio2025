@@ -47,7 +47,7 @@ export default function Projects() {
                     return <div key={index + project.name} className='flex justify-around items-center w-full  category-item  blur-[100px] relative before:absolute before:h-0.5 before:w-11/12 md:before:w-8/12 before:bg-white before:-bottom-5'>
                         <p onClick={() => navigateTo(index, catId)}
                             className=" text-2xl cursor-pointer hover:text-blue-400 md:text-5xl w-3/4  md:w-[600px]
-                    ">{project && project.name}</p>
+                    ">{project && project.name.toUpperCase()}</p>
                         <span className="text-2xl cursor-pointer hover:text-blue-400 md:text-5xl " >{index + 1}</span>
 
                     </div>

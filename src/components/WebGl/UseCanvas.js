@@ -20,6 +20,8 @@ export const UseCanvas = () => {
     canvas.style.top = 0;
     canvas.style.zIndex = -1;
     canvas.style.opacity = 0;
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
     document.body.appendChild(context.canvas);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
