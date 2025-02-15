@@ -41,7 +41,7 @@ export default function Projects() {
     useBlurTransition(isLoaded, container, '.category-item')
 
     return (
-        <div className='flex flex-col items-start justify-center w-full h-full gap-10 font-bold text-left text-white -z-1' ref={container}>
+        <div className='flex flex-col items-start justify-start md:justify-center mt-10 md:mt-0 w-full h-full gap-10 font-bold text-left text-white -z-1' ref={container}>
             {
                 projects.map((project, index) => {
                     return <div key={index + project.name} className='flex justify-around items-center w-full  category-item  blur-[100px] relative before:absolute before:h-0.5 before:w-11/12 md:before:w-8/12 before:bg-white before:-bottom-5'>
