@@ -1,24 +1,48 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect, use } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import gsap from 'gsap';
+import emitter from "../Utils/EventEmitter";
 
 export default function MobileNav() {
-    const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    if (isNavOpen) {
+      gsap.to('.showMenuNav', { xPercent: 0, duration: 0.5 });
+    } else {
+      gsap.to('.showMenuNav', { xPercent: -100, duration: 0.5 });
+    }
+  }, [isNavOpen]);
+  const handleClick = () => {
+    setIsNavOpen((prev) => !prev);
+  };
+
+  const handleGoTo = async (path) => {
+    emitter.emit('transitionCalled');
+    emitter.all['transitionCalled'] = [];
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsNavOpen(false);
+    gsap.to('.showMenuNav', { xPercent: -100, duration: 0.5 });
+    navigate(path);
+  };
 
   return (
     <div className="flex items-center justify-end mx-5 py-4">
-   
+
       <nav>
         <section className="MOBILE-MENU flex lg:hidden">
           <div
             className="HAMBURGER-ICON space-y-2"
-            onClick={() => setIsNavOpen((prev) => !prev)}
+            onClick={handleClick}
           >
             <span className="block h-0.5 w-8 bg-white"></span>
             <span className="block h-0.5 w-8 bg-white"></span>
             <span className="block h-0.5 w-8 bg-white"></span>
           </div>
 
-          <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
+          <div className="showMenuNav" >
             <div
               className="absolute top-0 right-0 px-8 py-8"
               onClick={() => setIsNavOpen(false)}
@@ -37,15 +61,15 @@ export default function MobileNav() {
               </svg>
             </div>
             <ul className="flex flex-col items-center justify-between min-h-[250px]">
-            <NavLink to="/" className="hover:text-blue-400">
+              <button onClick={() => handleGoTo("/")} className="hover:text-blue-400">
                 <p className="text-white footer-home">Projects</p>
-            </NavLink>
-            <NavLink to="/about" className="hover:text-blue-400">
+              </button>
+              <button onClick={() => handleGoTo("/about")} className="hover:text-blue-400">
                 <p className="text-white footer-home">About</p>
-            </NavLink>
-            <NavLink to="/contact" className="hover:text-blue-400">
+              </button>
+              <button onClick={() => handleGoTo("/contact")} className="hover:text-blue-400">
                 <p className="text-white footer-home">Contact</p>
-            </NavLink>
+              </button>
             </ul>
           </div>
         </section>
