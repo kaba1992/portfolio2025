@@ -12,6 +12,8 @@ export const UseCanvas = () => {
     const context = canvas.getContext('2d');
     let canDraw = false;
     let isImageLoaded = false;
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+    let drawlimit = isMobile ? 10000 : 1000;
 
     const image = new Image();
     image.src = '/images/Brushs/brush2.png';
@@ -153,7 +155,7 @@ export const UseCanvas = () => {
                     context.fill();
 
 
-                    if (drawCount > 1000) {
+                    if (drawCount > drawlimit) {
                         console.log("drawCount", drawCount);
 
                         emitter.emit('revealCompleat', { loading: false });
