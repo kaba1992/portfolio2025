@@ -1,4 +1,3 @@
-import React from "react";
 import emitter from "../Utils/EventEmitter";
 import gsap from "gsap";
 
@@ -33,6 +32,8 @@ export const UseCanvas = () => {
     canvas.style.opacity = 0;
     canvas.style.width = '100%';
     canvas.style.height = '100%';
+    // disable touch actions
+    canvas.style.touchAction = 'none';
     document.body.appendChild(context.canvas);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -111,7 +112,7 @@ export const UseCanvas = () => {
 
         callback( x1, y1);
     }
-    window.onmousemove = function (event) {
+    window.onpointermove = function (event) {
         if (canDraw && isImageLoaded) {
             x = parseInt(canvas.offsetLeft);
             y = parseInt(canvas.offsetTop);
@@ -149,7 +150,6 @@ export const UseCanvas = () => {
                     context.fillStyle = `rgba(0, 0, 0, 1)`;
                     
                     context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
-                
                     context.fill();
 
 
@@ -160,7 +160,7 @@ export const UseCanvas = () => {
 
                         emitter.all['revealCompleat'] = [];
 
-                        window.onmousemove = null;
+                        window.onpointermove = null;
 
                     }
                 });
