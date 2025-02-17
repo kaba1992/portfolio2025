@@ -15,7 +15,7 @@ export const UseCanvas = () => {
     let isImageLoaded = false;
 
     const image = new Image();
-    image.src = '/images/brushs/brush2.png';
+    image.src = '../../../images/Brushs/brush2.png';
 
     image.onload = () => {
         
