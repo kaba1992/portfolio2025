@@ -19,15 +19,15 @@ export const UseCanvas = () => {
     image.src = '/images/Brushs/brush2.png';
 
     image.onload = () => {
-        
+
         isImageLoaded = true;
     };
-    
+
     image.onerror = (err) => {
         console.error("Erreur de chargement de l'image :", err);
     };
-              
- 
+
+
     canvas.style.position = 'absolute';
     canvas.style.top = 0;
     canvas.style.zIndex = -1;
@@ -51,7 +51,7 @@ export const UseCanvas = () => {
     });
 
 
-    function createFlow( x1, y1, x2, y2, callback) {
+    function createFlow(x1, y1, x2, y2, callback) {
         let dx = x2 - x1;
         let sx = 1;
         let dy = y2 - y1;
@@ -86,7 +86,7 @@ export const UseCanvas = () => {
                 x1 += sx;
 
                 if (space === spacing) {
-                    callback( x1, y1);
+                    callback(x1, y1);
                     space = 0;
                 } else {
                     space++;
@@ -104,7 +104,7 @@ export const UseCanvas = () => {
                 y1 += sy;
 
                 if (space === spacing) {
-                    callback( x1, y1);
+                    callback(x1, y1);
                     space = 0;
                 } else {
                     space++;
@@ -112,9 +112,10 @@ export const UseCanvas = () => {
             }
         }
 
-        callback( x1, y1);
+        callback(x1, y1);
     }
-    window.onpointermove = function (event) {
+
+    function touchMoveHandler(event) {
         if (canDraw && isImageLoaded) {
             x = parseInt(canvas.offsetLeft);
             y = parseInt(canvas.offsetTop);
@@ -139,18 +140,18 @@ export const UseCanvas = () => {
             }
 
             if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
-                createFlow( x, y, prevX, prevY, async  (x, y) => {
+                createFlow(x, y, prevX, prevY, async (x, y) => {
                     if (!canDraw && !isImageLoaded) return;
                     drawCount++;
-                    
-                    let newWidth =  isMobile ? image.width  : image.width * 2.5;
+
+                    let newWidth = isMobile ? image.width : image.width * 2.5;
                     let newHeight = isMobile ? image.height : image.height * 2.5;
-                    
+
                     context.globalAlpha = 0.06
-                    
+
                     context.beginPath();
                     context.fillStyle = `rgba(0, 0, 0, 1)`;
-                    
+
                     context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
                     context.fill();
 
@@ -163,6 +164,7 @@ export const UseCanvas = () => {
                         emitter.all['revealCompleat'] = [];
 
                         window.onpointermove = null;
+                        window.ontouchmove = null;
 
                     }
                 });
@@ -172,8 +174,12 @@ export const UseCanvas = () => {
             }
 
         }
-
-
+    }
+    window.onpointermove = function (event) {
+        touchMoveHandler(event);
+    };
+    window.ontouchmove = function (event) {
+        touchMoveHandler(event);
     };
 
     return canvas;
