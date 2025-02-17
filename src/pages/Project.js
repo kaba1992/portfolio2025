@@ -75,7 +75,7 @@ export default function Project() {
             <div className='items-center md:items-start justify-center text-white  gap-5 md:gap-10 flex flex-col 
             md:flex-row md:mt-20  w-[calc(100%-30px)] mx-[30px] md:w-[calc(100%-60px)] md:mx-[0px] md:h-[500px] '>
                 <div style={{ width: width, height: 'auto' }} className=''>
-                    <video autoPlay muted loop className='border-2 border-white ' ref={videoRef}>
+                    <video autoPlay muted loop className='border-2 border-white ' ref={videoRef} poster={`/videos/${catId}/posters/${projects[currentIndex]?.name.replace(/\s/g, '')}.png`}>
                         <source src={`/videos/${catId}/${projects[currentIndex]?.name.replace(/\s/g, '')}.mp4`} type="video/mp4" />
                     </video>
 
