@@ -12,10 +12,21 @@ export const UseCanvas = () => {
     const canvas = document.createElement('canvas');;
     const context = canvas.getContext('2d');
     let canDraw = false;
+    let isImageLoaded = false;
 
     const image = new Image();
     image.src = '/images/brushs/brush2.png';
 
+    image.onload = () => {
+        
+        isImageLoaded = true;
+    };
+    
+    image.onerror = (err) => {
+        console.error("Erreur de chargement de l'image :", err);
+    };
+              
+ 
     canvas.style.position = 'absolute';
     canvas.style.top = 0;
     canvas.style.zIndex = -1;
@@ -37,7 +48,7 @@ export const UseCanvas = () => {
     });
 
 
-    function createFlow(x1, y1, x2, y2, callback) {
+    function createFlow( x1, y1, x2, y2, callback) {
         let dx = x2 - x1;
         let sx = 1;
         let dy = y2 - y1;
@@ -72,7 +83,7 @@ export const UseCanvas = () => {
                 x1 += sx;
 
                 if (space === spacing) {
-                    callback(x1, y1);
+                    callback( x1, y1);
                     space = 0;
                 } else {
                     space++;
@@ -90,7 +101,7 @@ export const UseCanvas = () => {
                 y1 += sy;
 
                 if (space === spacing) {
-                    callback(x1, y1);
+                    callback( x1, y1);
                     space = 0;
                 } else {
                     space++;
@@ -98,10 +109,10 @@ export const UseCanvas = () => {
             }
         }
 
-        callback(x1, y1);
+        callback( x1, y1);
     }
     window.onmousemove = function (event) {
-        if (canDraw) {
+        if (canDraw && isImageLoaded) {
             x = parseInt(canvas.offsetLeft);
             y = parseInt(canvas.offsetTop);
 
@@ -125,21 +136,23 @@ export const UseCanvas = () => {
             }
 
             if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
-                createFlow(x, y, prevX, prevY, function (x, y) {
-                    if (!canDraw) return;
+                createFlow( x, y, prevX, prevY, async  (x, y) => {
+                    if (!canDraw && !isImageLoaded) return;
                     drawCount++;
-                    let newWidth = image.width * 2.5;
-                    let newHeight = image.height * 2.5;
+                    
+                    let newWidth =  image.width * 2.5;
+                    let newHeight =  image.height * 2.5;
+                    
                     context.globalAlpha = 0.06
-                    context.fillStyle = `rgba(0, 0, 0, 1)`;
-
+                    
                     context.beginPath();
-                    context.imageSmoothingEnabled = true;
-                    image.onload = function () {
-                        context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
-                    }
-                  
+                    context.fillStyle = `rgba(0, 0, 0, 1)`;
+                    
+                    context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
+                    console.log(image.width, image.height);
                     context.fill();
+
+
                     if (drawCount > 1000) {
                         console.log("drawCount", drawCount);
 
@@ -148,7 +161,7 @@ export const UseCanvas = () => {
                         emitter.all['revealCompleat'] = [];
 
                         window.onmousemove = null;
-                     
+
                     }
                 });
 

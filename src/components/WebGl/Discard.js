@@ -46,7 +46,6 @@ export default function Discard() {
 
     if (landingFragment === '' || landingVertex === '') return null;
 
-
     return (
 
         <mesh ref={revealMesh} >
