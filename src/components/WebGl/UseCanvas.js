@@ -115,7 +115,10 @@ export const UseCanvas = () => {
         callback(x1, y1);
     }
 
+
+
     function touchMoveHandler(event) {
+        event.preventDefault();
         if (canDraw && isImageLoaded) {
             x = parseInt(canvas.offsetLeft);
             y = parseInt(canvas.offsetTop);
@@ -144,8 +147,8 @@ export const UseCanvas = () => {
                     if (!canDraw && !isImageLoaded) return;
                     drawCount++;
 
-                    let newWidth = isMobile ? image.width : image.width * 2.5;
-                    let newHeight = isMobile ? image.height : image.height * 2.5;
+                    let newWidth = isMobile ? image.width / 4 : image.width * 2.5;
+                    let newHeight = isMobile ? image.height / 4 : image.height * 2.5;
 
                     context.globalAlpha = 0.06
 
@@ -175,10 +178,17 @@ export const UseCanvas = () => {
 
         }
     }
+    window.ontouchstart = function (event) {
+        const rect = canvas.getBoundingClientRect();
+        prevX = event.touches[0].pageX - rect.left - 50;
+        prevY = event.touches[0].pageY - rect.top - 50;
+
+    }
     window.onpointermove = function (event) {
         touchMoveHandler(event);
     };
     window.ontouchmove = function (event) {
+        event.preventDefault();
         touchMoveHandler(event);
     };
 
