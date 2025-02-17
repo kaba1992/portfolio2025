@@ -143,8 +143,8 @@ export const UseCanvas = () => {
                     if (!canDraw && !isImageLoaded) return;
                     drawCount++;
                     
-                    let newWidth =  image.width * 2.5;
-                    let newHeight =  image.height * 2.5;
+                    let newWidth =  isMobile ? image.width  : image.width * 2.5;
+                    let newHeight = isMobile ? image.height : image.height * 2.5;
                     
                     context.globalAlpha = 0.06
                     
