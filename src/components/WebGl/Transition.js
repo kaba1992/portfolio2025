@@ -12,8 +12,6 @@ import transitionVertex from "../../assets/shaders/transitionVertex.glsl";
 
 const Transition = React.memo(() => {
     const transitionMesh = useRef();
-    // const [transitionFragment, setTransitionFragment] = useState('');
-    // const [transitionVertex, setTransitionVertex] = useState('');
     const rendertargetTexture = useFBO();
     const transitionTexture = useTexture("/images/reveal.jpg");
     const uniforms = useMemo(() => ({
@@ -50,11 +48,6 @@ const Transition = React.memo(() => {
 
     });
 
-    useEffect(() => {
-        // axios.get("/shaders/others/transitionFragment.glsl").then((response) => setTransitionFragment(response.data));
-        // axios.get("/shaders/others/transitionVertex.glsl").then((response) => setTransitionVertex(response.data));
-    }, []);
-    console.log(transitionFragment, transitionVertex);
 
     if (transitionFragment === '' || transitionVertex === '') return null;
 

@@ -8,12 +8,11 @@ import * as THREE from 'three';
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import emitter from "../Utils/EventEmitter";
+import landingFragment from "../../assets/shaders/LandingPage/landingFragment.glsl";
+import landingVertex from "../../assets/shaders/LandingPage/landingVertex.glsl";
 
 export default function Discard() {
 
-    const [landingFragment, setLandingFragment] = useState('');
-    const [landingVertex, setLandingVertex] = useState('');
- 
     const canvas = UseCanvas();
     const canvasTexture = new THREE.CanvasTexture(canvas);
     const revealtexture = useTexture("/images/reveal.jpg");
@@ -25,15 +24,10 @@ export default function Discard() {
         uOpacity: { value: 1 }
     }), [canvasTexture, revealtexture]);
 
-    useEffect(() => {
-        axios.get("/shaders/landingPage/landingFragment.glsl").then((response) => setLandingFragment(response.data));
-        axios.get("/shaders/landingPage/landingVertex.glsl").then((response) => setLandingVertex(response.data));
-    }, []);
+
 
     useFrame((state, delta) => {
         canvasTexture.needsUpdate = true;
-        console.log(uniforms.uOpacity.value);
-
 
     });
 

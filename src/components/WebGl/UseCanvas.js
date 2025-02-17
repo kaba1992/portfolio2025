@@ -135,7 +135,10 @@ export const UseCanvas = () => {
 
                     context.beginPath();
                     context.imageSmoothingEnabled = true;
-                    context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
+                    image.onload = function () {
+                        context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
+                    }
+                  
                     context.fill();
                     if (drawCount > 1000) {
                         console.log("drawCount", drawCount);
