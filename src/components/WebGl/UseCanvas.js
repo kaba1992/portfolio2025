@@ -149,7 +149,7 @@ export const UseCanvas = () => {
                     context.fillStyle = `rgba(0, 0, 0, 1)`;
                     
                     context.drawImage(image, x - newWidth / 2, y - newHeight / 2, newWidth, newHeight);
-                    console.log(image.width, image.height);
+                
                     context.fill();
 
 
