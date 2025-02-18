@@ -6,12 +6,12 @@ export const UseCanvas = () => {
     let y = null;
     let prevX = null;
     let prevY = null;
-   let beginXpActivated = false;
+    let beginXpActivated = false;
     const spacing = 3;
     let drawCount = 0;
     const canvas = document.createElement('canvas');;
     const context = canvas.getContext('2d');
-    let webglCanvas = document.getElementById("webgl")
+    let webglCanvas = document.getElementById("root")
     let canDraw = false;
     let isImageLoaded = false;
     let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
@@ -46,6 +46,7 @@ export const UseCanvas = () => {
 
     emitter.on('loadingComplete', (data) => {
         canDraw = true;
+        handleEvents();
         if (x !== null && y !== null) {
             prevX = x;
             prevY = y;
@@ -168,8 +169,8 @@ export const UseCanvas = () => {
 
                         emitter.all['revealCompleat'] = [];
 
-                        window.onpointermove = null;
-                        window.ontouchmove = null;
+                        removeEvents();
+                        canDraw = false;
 
                     }
                 });
@@ -180,19 +181,28 @@ export const UseCanvas = () => {
 
         }
     }
-    window.ontouchstart = function (event) {
+
+
+    function touchStartHandler(event) {
         const rect = canvas.getBoundingClientRect();
         prevX = event.touches[0].pageX - rect.left - 50;
         prevY = event.touches[0].pageY - rect.top - 50;
-
     }
-    window.onpointermove = function (event) {
-        touchMoveHandler(event);
-    };
-    window.ontouchmove = function (event) {
-        event.preventDefault();
-        touchMoveHandler(event);
-    };
+
+    function handleEvents() {
+        window.addEventListener('touchmove', (event) => touchMoveHandler(event), false);
+        window.addEventListener('touchstart', (event) => touchStartHandler(event), false);
+        window.addEventListener('pointermove', (event) => touchMoveHandler(event), false);
+        window.addEventListener('pointerdown', (event) => touchStartHandler(event), false);
+    }
+
+    function removeEvents() {
+        window.removeEventListener('touchmove', (event) => touchMoveHandler(event), false);
+        window.removeEventListener('touchstart', (event) => touchStartHandler(event), false);
+        window.removeEventListener('pointermove', (event) => touchMoveHandler(event), false);
+        window.removeEventListener('pointerdown', (event) => touchStartHandler(event), false);
+    }
+
 
     return canvas;
 }; 
