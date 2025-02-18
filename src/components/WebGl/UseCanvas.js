@@ -6,10 +6,12 @@ export const UseCanvas = () => {
     let y = null;
     let prevX = null;
     let prevY = null;
-    const spacing = 6;
+   let beginXpActivated = false;
+    const spacing = 3;
     let drawCount = 0;
     const canvas = document.createElement('canvas');;
     const context = canvas.getContext('2d');
+    let webglCanvas = document.getElementById("webgl")
     let canDraw = false;
     let isImageLoaded = false;
     let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
@@ -150,7 +152,7 @@ export const UseCanvas = () => {
                     let newWidth = isMobile ? image.width / 4 : image.width * 2.5;
                     let newHeight = isMobile ? image.height / 4 : image.height * 2.5;
 
-                    context.globalAlpha = 0.06
+                    context.globalAlpha = isMobile ? 1 : 0.06;
 
                     context.beginPath();
                     context.fillStyle = `rgba(0, 0, 0, 1)`;
