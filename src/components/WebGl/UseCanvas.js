@@ -1,4 +1,3 @@
-import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
 import emitter from "../Utils/EventEmitter";
 import gsap from "gsap";
 
@@ -16,10 +15,10 @@ export const UseCanvas = () => {
     let canDraw = false;
     let isImageLoaded = false;
     let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-    let drawlimit = isMobile ? 10000 : 1000;
+    let drawlimit = isMobile ? 1000 : 2000;
 
     const image = new Image();
-    image.src = is  ? '/images/Brushs/brush6.png' : '/images/Brushs/brush2.png';;
+    image.src = isMobile ? '/images/Brushs/brush6.png' : '/images/Brushs/brush2.png';;
 
     image.onload = () => {
 
@@ -57,20 +56,12 @@ export const UseCanvas = () => {
 
     function createFlow(x1, y1, x2, y2, callback) {
         let dx = x2 - x1;
-        let sx = 1;
+        let sx = dx < 0 ? -1 : 1;
+        dx = Math.abs(dx);
+        
         let dy = y2 - y1;
-        let sy = 1;
-
-
-        if (dx < 0) {
-            sx = -1;
-            dx = -dx;
-        }
-
-        if (dy < 0) {
-            sy = -1;
-            dy = -dy;
-        }
+        let sy = dy < 0 ? -1 : 1;
+        dy = Math.abs(dy);
 
         dx = dx << 1;
         dy = dy << 1;
@@ -147,7 +138,7 @@ export const UseCanvas = () => {
             }
 
             if (((x - prevX) >= spacing || (y - prevY) >= spacing) || (prevX - x) >= spacing || (prevY - y) >= spacing) {
-                createFlow(x, y, prevX, prevY, async (x, y) => {
+                createFlow(x, y, prevX, prevY, async function (x, y) {
                     if (!canDraw && !isImageLoaded) return;
                     drawCount++;
 
@@ -176,6 +167,9 @@ export const UseCanvas = () => {
                     }
                 });
 
+                prevX = x;
+                prevY = y;
+            } else {
                 prevX = x;
                 prevY = y;
             }
