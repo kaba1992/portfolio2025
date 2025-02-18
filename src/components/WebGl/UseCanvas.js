@@ -1,3 +1,4 @@
+import { is } from "@react-three/fiber/dist/declarations/src/core/utils";
 import emitter from "../Utils/EventEmitter";
 import gsap from "gsap";
 
@@ -18,7 +19,7 @@ export const UseCanvas = () => {
     let drawlimit = isMobile ? 10000 : 1000;
 
     const image = new Image();
-    image.src = '/images/Brushs/brush2.png';
+    image.src = is  ? '/images/Brushs/brush6.png' : '/images/Brushs/brush2.png';;
 
     image.onload = () => {
 
