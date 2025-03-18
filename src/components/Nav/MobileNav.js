@@ -29,7 +29,7 @@ export default function MobileNav() {
   };
 
   return (
-    <div className="flex items-center justify-end mx-5 py-4">
+    <div className="flex items-center justify-end mx-5 py-4 self-end">
 
       <nav>
         <section className="MOBILE-MENU flex lg:hidden">

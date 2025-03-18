@@ -19,7 +19,7 @@ export const useBlurTransition = (isLoaded, container, selector) => {
             elements.forEach((item) => {
 
                 if (item !== event.target) {
-                    gsap.to(item, { filter: "blur(50px)", duration: 1, ease: "power1.inOut" });
+                    gsap.to(item, { filter: "blur(15px)", duration: 0.25, ease: "power1.inOut" });
                 }
             });
         };
@@ -27,7 +27,7 @@ export const useBlurTransition = (isLoaded, container, selector) => {
         const handleMouseLeave = (event) => {
             elements.forEach((item) => {
                 if (item !== event.target) {
-                    gsap.to(item, { filter: "blur(0px)", duration: 1, ease: "power1.inOut" });
+                    gsap.to(item, { filter: "blur(0px)", duration: 0.25, ease: "power1.inOut" });
                 }
             });
         };
@@ -41,8 +41,8 @@ export const useBlurTransition = (isLoaded, container, selector) => {
         /// disable pointer events on the container
         gsap.set(container.current, { pointerEvents: "none" });
 
-        gsap.fromTo(elements, { filter: "blur(100px)" }, {
-            filter: "blur(0px)", duration: 1, ease: "power1.inOut", stagger: 0.1,
+        gsap.fromTo(elements, { filter: "blur(50px)" }, {
+            filter: "blur(0px)", duration: 0.25, ease: "power1.inOut", stagger: 0.1,
             onComplete: () => {
                 container.current.style.pointerEvents = "auto";
             }

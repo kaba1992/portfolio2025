@@ -6,31 +6,37 @@ export default function Footer() {
     return (
         <div className=" absolute w-full flex items-center justify-around mx-2 my-2 text-white flex-co z-5" >
 
-            <NavLink to="/" className="hover:text-blue-400">
-                <p className="text-white footer-home">Kaba Ibrahima</p>
+            <NavLink to="/" className="">
+                <p className="text-white footer-home hover:text-blue-400">Kaba Ibrahima</p>
             </NavLink>
-            <NavLink to="/about" className="hover:text-blue-400">
-                <p className="text-white footer-home">About</p>
+            <NavLink to="/about" className="">
+                <p className="text-white footer-home hover:text-blue-400">About</p>
             </NavLink>
-            <NavLink to="/contact" className="hover:text-blue-400">
-                <p className="text-white footer-home">Contact</p>
+            <NavLink to="#" className=""
+             onClick={(e) => {
+                window.location.href = "mailto:ibrahima.kaba@outlook.fr";
+                e.preventDefault();
+            }}
+            >
+           
+                <p className="text-white footer-home hover:text-blue-400">Contact</p>
             </NavLink>
 
             <div className="">
                 <ul className="flex gap-3">
                     <li>
-                        <a href="https://www.linkedin.com/in/ibrahima-kaba-277041178/" target="_blank" rel="noopener noreferrer">
-                            <FaLinkedin size={30} />
+                        <a href="https://www.linkedin.com/in/ibrahima-kaba-277041178/" target="_blank" rel="noopener noreferrer hover:text-blue-400">
+                            <FaLinkedin size={30} className = "hoverIcon" />
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/kaba1992" target="_blank" rel="noopener noreferrer">
-                            <FaGithub size={30} />
+                            <FaGithub size={30} className = "hoverIcon"/>
                         </a>
                     </li>
                     <li>
                         <a href="https://www.instagram.com/ibrahima__kaba/?hl=fr" target="_blank" rel="noopener noreferrer">
-                            <FaInstagram size={30} />
+                            <FaInstagram size={30} className = "hoverIcon"/>
                         </a>
                     </li>
                 </ul>

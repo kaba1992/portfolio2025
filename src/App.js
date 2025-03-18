@@ -11,6 +11,7 @@ import Project from './pages/Project';
 import MobileNav from './components/Nav/MobileNav';
 import Experience from './components/WebGl/Experience';
 import Loading from './components/landingPage/Loading';
+import Noise from './components/Utils/Noise';
 
 function App() {
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
@@ -21,7 +22,7 @@ function App() {
 
       <BrowserRouter>
 
-     {  isMobile? <MobileNav /> : <Footer />}
+        {isMobile ? <MobileNav /> : <Footer />}
 
         <Routes>
           <Route path="/" element={<LandingPage showElements={true} />} />
@@ -30,10 +31,17 @@ function App() {
           <Route path="/project/:index/:catId?" element={<Project />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
+        <Noise
+          patternSize={500}
+          patternScaleX={1}
+          patternScaleY={1}
+          patternRefreshInterval={0.5}
+          patternAlpha={30}
+        />
         <Experience />
         <Loading />
       </BrowserRouter>
-   
+
 
     </div>
   );

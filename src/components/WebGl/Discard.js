@@ -15,7 +15,7 @@ export default function Discard() {
 
     const canvas = UseCanvas();
     const canvasTexture = new THREE.CanvasTexture(canvas);
-    const revealtexture = useTexture("/images/reveal.jpg");
+    const revealtexture = useTexture("/images/reveal.png");
     const revealMesh = useRef();
 
     const uniforms = useMemo(() => ({

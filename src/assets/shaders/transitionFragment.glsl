@@ -104,10 +104,10 @@ vec4 transition(vec2 uv) {
     p.x *= ratio;
 
     float noise = cnoise(vec3(p * 10., 0.));
-    float pr = uProgress + noise * .1;
+    float pr = uProgress + noise * .5;
 
-    float d = sdCircle(p, pr * sqrt(2.));
-    float c = smoothstep(-.1, -.05, d);
+    float d = sdCircle(p, pr * sqrt(8.));
+    float c = smoothstep(-.1, -.1, d);
     vec4 fromColor = texture2D(uTransitionTexture, uv);
     vec4 toColor = texture2D(uRenderTargetTexture, uv);
 

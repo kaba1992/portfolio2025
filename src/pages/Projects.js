@@ -35,16 +35,19 @@ export default function Projects() {
     useEffect(() => {
         const filteredProjects = ProjectsData.filter((element) => element.categorie === parseInt(catId));
         setProjects(filteredProjects);
-        setIsLoaded(true);
+        setTimeout(() => {
+            setIsLoaded(true);
 
+        }, 700)
     }, [catId])
+
     useBlurTransition(isLoaded, container, '.category-item')
 
     return (
-        <div className='flex flex-col items-start justify-start md:justify-center mt-10 md:mt-0 w-full h-full gap-10 font-bold text-left text-white -z-1' ref={container}>
+        <div className='flex flex-col items-center md:justify-center mt-10 md:mt-0 md:w-[1300px] w-[300px] h-full gap-6 md:gap-10 font-bold text-left text-white -z-1' ref={container}>
             {
                 projects.map((project, index) => {
-                    return <div key={index + project.name} className='flex justify-around items-center w-full  category-item  blur-[100px] relative before:absolute before:h-0.5 before:w-11/12 md:before:w-8/12 before:bg-white before:-bottom-5'>
+                    return <div key={index + project.name} className='flex justify-between items-center w-full  category-item  blur-[100px] relative before:absolute before:h-0.5 before:w-full before:bg-white before:-bottom-5'>
                         <p onClick={() => navigateTo(index, catId)}
                             className=" text-2xl cursor-pointer hover:text-blue-400 md:text-5xl w-3/4  md:w-[600px]
                     ">{project && project.name.toUpperCase()}</p>

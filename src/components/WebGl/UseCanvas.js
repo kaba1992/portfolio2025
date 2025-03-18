@@ -179,21 +179,21 @@ export const UseCanvas = () => {
 
 
     function touchStartHandler(event) {
-        const rect = canvas.getBoundingClientRect();
-        prevX = event.touches[0].pageX - rect.left - 50;
-        prevY = event.touches[0].pageY - rect.top - 50;
+        // const rect = canvas.getBoundingClientRect();
+        // prevX = event.touches[0].pageX - rect.left - 50;
+        // prevY = event.touches[0].pageY - rect.top - 50;
     }
 
     function handleEvents() {
         window.addEventListener('touchmove', (event) => touchMoveHandler(event), false);
-        window.addEventListener('touchstart', (event) => touchStartHandler(event), false);
+        // window.addEventListener('touchstart', (event) => touchStartHandler(event), false);
         window.addEventListener('pointermove', (event) => touchMoveHandler(event), false);
         window.addEventListener('pointerdown', (event) => touchStartHandler(event), false);
     }
 
     function removeEvents() {
         window.removeEventListener('touchmove', (event) => touchMoveHandler(event), false);
-        window.removeEventListener('touchstart', (event) => touchStartHandler(event), false);
+        // window.removeEventListener('touchstart', (event) => touchStartHandler(event), false);
         window.removeEventListener('pointermove', (event) => touchMoveHandler(event), false);
         window.removeEventListener('pointerdown', (event) => touchStartHandler(event), false);
     }

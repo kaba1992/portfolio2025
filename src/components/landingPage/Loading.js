@@ -37,13 +37,14 @@ export default function Loading() {
             left: 0,
             width: '100%',
             height: '100%',
-            zIndex: 500,
+            zIndex: 50,
             pointerEvents: 'none',
-            backgroundColor: "#000000"
+            backgroundColor: "#28282B"
         }} ref={loadingContainer}>
             <DotLottieReact
-                src="https://lottie.host/cc3ee0fc-c017-4470-bfb6-c8712c0048d7/QBTpVIcl9a.lottie"
+                src="https://lottie.host/b77e27f7-54dc-42bd-83a4-46a189323ec1/bODlK45I2N.lottie"
                 autoplay
+                
                 className='absolute w-1/4 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 h-1/4'
                 dotLottieRefCallback={setDotLottie}
             />

@@ -13,7 +13,7 @@ import transitionVertex from "../../assets/shaders/transitionVertex.glsl";
 const Transition = React.memo(() => {
     const transitionMesh = useRef();
     const rendertargetTexture = useFBO();
-    const transitionTexture = useTexture("/images/reveal.jpg");
+    const transitionTexture = useTexture("/images/reveal.png");
     
     const uniforms = useMemo(() => ({
         uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
