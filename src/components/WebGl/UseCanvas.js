@@ -113,7 +113,7 @@ export const UseCanvas = () => {
 
 
     function touchMoveHandler(event) {
-        event.preventDefault();
+        // event.preventDefault();
         if (canDraw && isImageLoaded) {
             x = parseInt(canvas.offsetLeft);
             y = parseInt(canvas.offsetTop);

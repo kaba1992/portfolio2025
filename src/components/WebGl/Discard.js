@@ -12,14 +12,17 @@ import landingFragment from "../../assets/shaders/LandingPage/landingFragment.gl
 import landingVertex from "../../assets/shaders/LandingPage/landingVertex.glsl";
 
 export default function Discard() {
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
 
     const canvas = UseCanvas();
     const canvasTexture = new THREE.CanvasTexture(canvas);
     const revealtexture = useTexture("/images/reveal.png");
+    const revealMobile = useTexture("/images/WavesMobile.png");
+    const revealMobileText = isMobile ? revealMobile : revealtexture;
     const revealMesh = useRef();
 
     const uniforms = useMemo(() => ({
-        uTexture: { value: revealtexture },
+        uTexture: { value: revealMobileText },
         uCanvasTexture: { value: canvasTexture },
         uOpacity: { value: 1 }
     }), [canvasTexture, revealtexture]);
