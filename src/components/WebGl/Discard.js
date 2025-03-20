@@ -35,10 +35,12 @@ export default function Discard() {
     });
 
     emitter.on('revealCompleat', (data) => {
-        if (revealMesh.current ) {
-            gsap.to(revealMesh.current.material.uniforms.uOpacity, { value: 0, duration: 1.5 ,onComplete:()=>{
-                canvas.style.display = 'none';
-            }});
+        if (revealMesh.current) {
+            gsap.to(revealMesh.current.material.uniforms.uOpacity, {
+                value: 0, duration: 1.5, onComplete: () => {
+                    canvas.style.display = 'none';
+                }
+            });
         }
     });
 
@@ -51,16 +53,19 @@ export default function Discard() {
 
     return (
 
-        <mesh ref={revealMesh} >
-            <planeGeometry args={[2, 2]} />
-            <shaderMaterial
-                uniforms={uniforms}
-                vertexShader={landingVertex}
-                fragmentShader={landingFragment}
-                transparent={true}
+        isMobile ?
+            null
+            :
+            <mesh ref={revealMesh} >
+                <planeGeometry args={[2, 2]} />
+                <shaderMaterial
+                    uniforms={uniforms}
+                    vertexShader={landingVertex}
+                    fragmentShader={landingFragment}
+                    transparent={true}
 
-            />
-        </mesh>
+                />
+            </mesh>
 
     );
 

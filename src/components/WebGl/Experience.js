@@ -5,7 +5,6 @@ import { Canvas } from "@react-three/fiber"
 
 export default function Experience() {
     console.log('Experience');
-    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
 
     return (
 
@@ -23,7 +22,7 @@ export default function Experience() {
             }}
             shadows
             camera={{ position: [0, 0, -5], fov: 50 }}>
-            isMobile ? null : <Discard />
+            <Discard />
             <Transition />
             {/* <Stats /> */}
         </Canvas>

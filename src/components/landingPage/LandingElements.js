@@ -1,28 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from "react-router-dom";
 import Gravity, { MatterBody } from '../Utils/Gravity.js';
 import ProjectsCategories from '../../pages/ProjectsCategories.js';
 import Projects from './../../pages/Projects';
 import ProjectsData from '../Utils/Data.js';
+import emitter from '../Utils/EventEmitter.js';
 
 export default function LandingElements() {
     const [projects, setProjects] = useState([]);
+    const matterRef = useRef(null);
     const skills = [
         "Ibrahima Kaba",
         "CREATIVE",
         "FRONT-END",
         "DEVELOPER"
     ];
+    useEffect(() => {
+
+        emitter.on('revealCompleat', (data) => {
+        
+                console.log(matterRef.current);
+                
+
+      
+        });
+    }, []);
 
     return (
         <>
             <div className='absolute flex items-center justify-around w-full h-full transform top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 '
             >
-                <Gravity gravity={{ x: 0, y: 1 }} grabCursor={true} className="w-full h-full ">
+                <Gravity gravity={{ x: 0, y: 1 }} grabCursor={true} className="w-full h-full" ref={matterRef}>
 
                     <div className="text-white pointer-events-auto ">
                         {skills.map((skill, index) => (
                             <MatterBody
+
                                 matterBodyOptions={{ friction: 0.5, restitution: 0.2 }}
                                 x={`${80 + index * 3}%`}
                                 y={`${20 + index * 10}%`}
