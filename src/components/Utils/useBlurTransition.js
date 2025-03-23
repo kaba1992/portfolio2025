@@ -15,7 +15,7 @@ export const useBlurTransition = (isLoaded, container, selector) => {
         }
 
         const handleMouseEnter = (event) => {
-            console.log("item");
+           
             elements.forEach((item) => {
 
                 if (item !== event.target) {

@@ -155,7 +155,7 @@ export const UseCanvas = () => {
 
 
                     if (drawCount > drawlimit) {
-                        console.log("drawCount", drawCount);
+                 
 
                         emitter.emit('revealCompleat', { loading: false });
 

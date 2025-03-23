@@ -4,7 +4,7 @@ import { Lightformer, Environment, OrbitControls, Stats } from "@react-three/dre
 import { Canvas } from "@react-three/fiber"
 
 export default function Experience() {
-    console.log('Experience');
+   
 
     return (
 

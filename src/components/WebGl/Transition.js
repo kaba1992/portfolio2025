@@ -29,7 +29,7 @@ const Transition = React.memo(() => {
         emitter.on('transitionCalled', (data) => {
             loopTl = gsap.timeline({ repeat: 1, yoyo: true });
             loopTl.to(uniforms.uProgress, { value: 0, duration: 1, ease: 'power2.inOut' });
-            console.log('transitionCalled');
+         
 
         });
         return () => {
