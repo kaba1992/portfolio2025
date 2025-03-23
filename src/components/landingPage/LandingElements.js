@@ -17,14 +17,24 @@ export default function LandingElements() {
         "FRONT-END",
         "DEVELOPER"
     ];
+    emitter.on('landingPage', (data) => {
+        setCanShow(true);
+        console.log("on landingPage");
+        
+     });
     useEffect(() => {
-  
+     
+
         emitter.on('revealCompleat', (data) => {
             setCanShow(true);
         });
         emitter.on('loadingComplete', (data) => {
-          isMobile && setCanShow(true);
+            isMobile && setCanShow(true);
         });
+ 
+
+console.log(canShow);
+
 
     }, [canShow]);
 

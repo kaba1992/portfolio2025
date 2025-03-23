@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import emitter from '../Utils/EventEmitter';
 
 export default function Footer() {
     return (
         <div className=" absolute w-full flex items-center justify-around mx-2 my-2 text-white flex-co z-5" >
 
-            <NavLink to="/" className="">
+            <NavLink to="/" className=""
+                onClick={() => {
+                    emitter.emit('landingPage')
+                    emitter.all['landingPage'] = [];
+                    console.log('landingPage');
+                    
+                }}
+            >
                 <p className="text-white footer-home hover:text-blue-400">Kaba Ibrahima</p>
             </NavLink>
             <NavLink to="/about" className="">
