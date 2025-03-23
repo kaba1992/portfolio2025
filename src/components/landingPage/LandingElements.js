@@ -7,6 +7,7 @@ import ProjectsData from '../Utils/Data.js';
 import emitter from '../Utils/EventEmitter.js';
 
 export default function LandingElements() {
+    let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
     const [projects, setProjects] = useState([]);
     const matterRef = useRef(null);
     const [canShow, setCanShow] = useState(false);
@@ -17,8 +18,12 @@ export default function LandingElements() {
         "DEVELOPER"
     ];
     useEffect(() => {
+  
         emitter.on('revealCompleat', (data) => {
             setCanShow(true);
+        });
+        emitter.on('loadingComplete', (data) => {
+          isMobile && setCanShow(true);
         });
 
     }, [canShow]);
