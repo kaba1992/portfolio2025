@@ -18,9 +18,7 @@ export default function LandingElements() {
         "DEVELOPER"
     ];
     emitter.on('landingPage', (data) => {
-        setCanShow(true);
-        console.log("on landingPage");
-        
+        setCanShow(true);    
      });
     useEffect(() => {
      

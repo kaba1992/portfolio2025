@@ -10,9 +10,7 @@ export default function Footer() {
             <NavLink to="/" className=""
                 onClick={() => {
                     emitter.emit('landingPage')
-                    emitter.all['landingPage'] = [];
-                    console.log('landingPage');
-                    
+                    emitter.all['landingPage'] = []; 
                 }}
             >
                 <p className="text-white footer-home hover:text-blue-400">Kaba Ibrahima</p>
