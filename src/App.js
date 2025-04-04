@@ -12,6 +12,7 @@ import MobileNav from './components/Nav/MobileNav';
 import Experience from './components/WebGl/Experience';
 import Loading from './components/landingPage/Loading';
 import Noise from './components/Utils/Noise';
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
@@ -41,7 +42,7 @@ function App() {
         <Experience />
         <Loading />
       </BrowserRouter>
-
+      <Analytics />
 
     </div>
   );
