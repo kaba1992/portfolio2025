@@ -37,6 +37,7 @@
     "fs-extra": "^10.0.0",
     "glslify": "^7.1.1",
     "glslify-loader": "^2.0.0",
+    "gsap": "^3.13.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",
