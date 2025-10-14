@@ -53,19 +53,17 @@ export default function Discard() {
 
     return (
 
-        isMobile ?
-            null
-            :
-            <mesh ref={revealMesh} >
-                <planeGeometry args={[2, 2]} />
-                <shaderMaterial
-                    uniforms={uniforms}
-                    vertexShader={landingVertex}
-                    fragmentShader={landingFragment}
-                    transparent={true}
 
-                />
-            </mesh>
+        <mesh ref={revealMesh} >
+            <planeGeometry args={[2, 2]} />
+            <shaderMaterial
+                uniforms={uniforms}
+                vertexShader={landingVertex}
+                fragmentShader={landingFragment}
+                transparent={true}
+
+            />
+        </mesh>
 
     );
 
