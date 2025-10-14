@@ -110,6 +110,9 @@ importers:
       glslify-loader:
         specifier: ^2.0.0
         version: 2.0.0
+      gsap:
+        specifier: ^3.13.0
+        version: 3.13.0
       html-webpack-plugin:
         specifier: ^5.5.0
         version: 5.6.4(webpack@5.102.1)
@@ -234,6 +237,9 @@ importers:
         specifier: ^6.4.1
         version: 6.6.1(@types/babel__core@7.20.5)(webpack@5.102.1)
     devDependencies:
+      '@babel/plugin-proposal-private-property-in-object':
+        specifier: ^7.21.11
+        version: 7.21.11(@babel/core@7.28.4)
       web-vitals:
         specifier: ^4.2.4
         version: 4.2.4
