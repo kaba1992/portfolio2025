@@ -12,6 +12,7 @@ export default function ProjectsCategories() {
     const container = useRef();
     const navigate = useNavigate();
     const [canClick, setCanClick] = useState(true);
+    const [canNavigate, setCanNavigate] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
 
@@ -29,7 +30,7 @@ export default function ProjectsCategories() {
     }, [])
 
     const navigateTo = async (index) => {
-        if (!canClick) return;
+        if (!canClick || !canNavigate) return;
         setCanClick(false);
         emitter.emit('transitionCalled');
         emitter.all['transitionCalled'] = [];
@@ -40,6 +41,10 @@ export default function ProjectsCategories() {
     }
     emitter.on('loadingComplete', (data) => {
         setIsLoaded(true)
+
+    });
+    emitter.on('revealCompleat', (data) => {
+        setCanNavigate(true)
 
     });
     useBlurTransition(isLoaded, container, '.category')

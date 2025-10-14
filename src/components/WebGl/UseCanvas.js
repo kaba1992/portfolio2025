@@ -15,7 +15,7 @@ export const UseCanvas = () => {
     let isImageLoaded = false;
     let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
     // Limite basée sur la distance parcourue en pixels (ajustable selon vos besoins)
-    let drawlimit = isMobile ? 4000 : 8000;
+    let drawlimit = isMobile ? 2500 : 8000;
 
     // Variables pré-calculées pour optimiser la boucle
     let brushWidth, brushHeight, brushAlpha;
@@ -98,9 +98,21 @@ export const UseCanvas = () => {
     function touchMoveHandler(event) {
         if (!canDraw || !isImageLoaded) return;
 
-        // Calcul de la position de la souris
-        x = event.pageX - canvas.offsetLeft;
-        y = event.pageY - canvas.offsetTop;
+        // Empêcher le scroll sur mobile
+        if (event.cancelable) {
+            event.preventDefault();
+        }
+
+        // Calcul de la position (gérer touch et pointer events)
+        if (event.touches && event.touches.length > 0) {
+            // Touch event
+            x = event.touches[0].pageX - canvas.offsetLeft;
+            y = event.touches[0].pageY - canvas.offsetTop;
+        } else {
+            // Pointer/Mouse event
+            x = event.pageX - canvas.offsetLeft;
+            y = event.pageY - canvas.offsetTop;
+        }
 
         if (prevX === null || prevY === null) {
             prevX = x;
@@ -154,18 +166,37 @@ export const UseCanvas = () => {
 
 
     function touchStartHandler(event) {
-        // const rect = canvas.getBoundingClientRect();
-        // prevX = event.touches[0].pageX - rect.left - 50;
-        // prevY = event.touches[0].pageY - rect.top - 50;
+        if (!canDraw || !isImageLoaded) return;
+
+        // Empêcher le scroll sur mobile
+        if (event.cancelable) {
+            event.preventDefault();
+        }
+
+        // Initialiser la position de départ
+        if (event.touches && event.touches.length > 0) {
+            // Touch event
+            prevX = event.touches[0].pageX - canvas.offsetLeft;
+            prevY = event.touches[0].pageY - canvas.offsetTop;
+        } else {
+            // Pointer/Mouse event
+            prevX = event.pageX - canvas.offsetLeft;
+            prevY = event.pageY - canvas.offsetTop;
+        }
+
+        x = prevX;
+        y = prevY;
     }
 
     function handleEvents() {
-        window.addEventListener('touchmove', touchMoveHandler, false);
+        window.addEventListener('touchstart', touchStartHandler, { passive: false });
+        window.addEventListener('touchmove', touchMoveHandler, { passive: false });
         window.addEventListener('pointermove', touchMoveHandler, false);
         window.addEventListener('pointerdown', touchStartHandler, false);
     }
 
     function removeEvents() {
+        window.removeEventListener('touchstart', touchStartHandler, false);
         window.removeEventListener('touchmove', touchMoveHandler, false);
         window.removeEventListener('pointermove', touchMoveHandler, false);
         window.removeEventListener('pointerdown', touchStartHandler, false);

@@ -315,3 +315,237 @@ Vous pouvez maintenant relancer votre projet sans erreurs ! 🚀
 
 ---
 
+_**User (2025-10-14 07:55Z)**_
+
+pourquoi sur pobile ça ne s'efface que quand je tapote au lieu de quand je bouge le doight c'est comme si ça ne s'effaçais qu'au tap et non au mouvement du doight 
+
+---
+
+_**Assistant (claude-4.5-sonnet-thinking)**_
+
+<think><details><summary>Thought Process</summary>L'utilisateur me demande pourquoi sur mobile, quelque chose ne s'efface que quand il tapote au lieu de quand il bouge le doigt, comme si ça ne s'effaçait qu'au tap et non au mouvement du doigt.
+
+Il regarde actuellement le fichier `UseCanvas.js` qui semble être lié à du WebGL. Je devrais lire ce fichier pour comprendre le problème.
+
+Cela ressemble à un problème d'événements tactiles (touch events) qui ne sont pas correctement gérés pour le mouvement. Probablement que seul le `touchstart` ou `click` est géré mais pas le `touchmove`.</details></think>
+
+---
+
+Je vais regarder le fichier `UseCanvas.js` pour comprendre comment les événements tactiles sont gérés :
+
+---
+
+Tool use: **read_file**
+
+Read file: /Users/kaba/Code/Formance/portfolio2025/src/components/WebGl/UseCanvas.js
+
+---
+
+<think><details><summary>Thought Process</summary>Ah je vois le problème ! En regardant le code :
+
+1. La fonction `touchMoveHandler` (lignes 98-153) récupère la position avec `event.pageX` et `event.pageY` (lignes 102-103)
+2. Mais ces propriétés n'existent pas sur les événements `touchmove` ! Pour les événements tactiles, il faut utiliser `event.touches[0].pageX` et `event.touches[0].pageY`
+
+Les événements `pointermove` fonctionnent avec `pageX/pageY`, mais les événements `touchmove` nécessitent `touches[0].pageX/pageY`.
+
+Donc quand l'utilisateur bouge son doigt sur mobile, l'événement `touchmove` est déclenché mais `x` et `y` sont probablement `undefined` ou `NaN`, donc rien ne se dessine. C'est seulement lors d'un tap que l'événement `pointerdown` peut fonctionner.
+
+Je dois corriger le code pour gérer correctement les événements tactiles.</details></think>
+
+---
+
+Ah, je vois le problème ! 🎯 Sur mobile, les événements **touch** ne fonctionnent pas de la même manière que les événements **pointer**. 
+
+**Le bug** : Ligne 102-103, vous utilisez `event.pageX` et `event.pageY`, mais pour les événements `touchmove`, il faut utiliser `event.touches[0].pageX` et `event.touches[0].pageY` !
+
+Voici la correction :
+
+---
+
+Tool use: **search_replace**
+
+
+<details><summary>Edit file: /Users/kaba/Code/Formance/portfolio2025/src/components/WebGl/UseCanvas.js</summary>
+
+**Chunk 1**
+Lines added: 15, lines removed: 3
+
+```diff
+@@ -99,7 +99,19 @@
+          if (!canDraw || !isImageLoaded) return;
+  
+-         // Calcul de la position de la souris
+-         x = event.pageX - canvas.offsetLeft;
+-         y = event.pageY - canvas.offsetTop;
++         // Empêcher le scroll sur mobile
++         if (event.cancelable) {
++             event.preventDefault();
++         }
++ 
++         // Calcul de la position (gérer touch et pointer events)
++         if (event.touches && event.touches.length > 0) {
++             // Touch event
++             x = event.touches[0].pageX - canvas.offsetLeft;
++             y = event.touches[0].pageY - canvas.offsetTop;
++         } else {
++             // Pointer/Mouse event
++             x = event.pageX - canvas.offsetLeft;
++             y = event.pageY - canvas.offsetTop;
++         }
+  
+          if (prevX === null || prevY === null) {
+```
+
+</details>
+
+---
+
+<think><details><summary>Thought Process</summary>Je devrais aussi corriger le touchStartHandler pour initialiser correctement les positions au début du toucher.</details></think>
+
+---
+
+Maintenant, améliorons aussi le `touchStartHandler` pour bien initialiser la position au début du toucher :
+
+---
+
+Tool use: **search_replace**
+
+
+<details><summary>Edit file: /Users/kaba/Code/Formance/portfolio2025/src/components/WebGl/UseCanvas.js</summary>
+
+**Chunk 1**
+Lines added: 20, lines removed: 3
+
+```diff
+@@ -167,7 +167,24 @@
+  
+      function touchStartHandler(event) {
+-         // const rect = canvas.getBoundingClientRect();
+-         // prevX = event.touches[0].pageX - rect.left - 50;
+-         // prevY = event.touches[0].pageY - rect.top - 50;
++         if (!canDraw || !isImageLoaded) return;
++ 
++         // Empêcher le scroll sur mobile
++         if (event.cancelable) {
++             event.preventDefault();
++         }
++ 
++         // Initialiser la position de départ
++         if (event.touches && event.touches.length > 0) {
++             // Touch event
++             prevX = event.touches[0].pageX - canvas.offsetLeft;
++             prevY = event.touches[0].pageY - canvas.offsetTop;
++         } else {
++             // Pointer/Mouse event
++             prevX = event.pageX - canvas.offsetLeft;
++             prevY = event.pageY - canvas.offsetTop;
++         }
++         
++         x = prevX;
++         y = prevY;
+      }
+  
+```
+
+</details>
+
+---
+
+<think><details><summary>Thought Process</summary>Je devrais aussi ajouter l'événement touchstart pour que ça fonctionne bien sur mobile.</details></think>
+
+---
+
+Et ajoutons l'événement `touchstart` pour être sûr que ça fonctionne sur tous les appareils :
+
+---
+
+Tool use: **search_replace**
+
+
+<details><summary>Edit file: /Users/kaba/Code/Formance/portfolio2025/src/components/WebGl/UseCanvas.js</summary>
+
+**Chunk 1**
+Lines added: 3, lines removed: 1
+
+```diff
+@@ -190,10 +190,12 @@
+  
+      function handleEvents() {
+-         window.addEventListener('touchmove', touchMoveHandler, false);
++         window.addEventListener('touchstart', touchStartHandler, { passive: false });
++         window.addEventListener('touchmove', touchMoveHandler, { passive: false });
+          window.addEventListener('pointermove', touchMoveHandler, false);
+          window.addEventListener('pointerdown', touchStartHandler, false);
+      }
+  
+      function removeEvents() {
++         window.removeEventListener('touchstart', touchStartHandler, false);
+          window.removeEventListener('touchmove', touchMoveHandler, false);
+          window.removeEventListener('pointermove', touchMoveHandler, false);
+```
+
+</details>
+
+---
+
+<think><details><summary>Thought Process</summary>Maintenant je devrais vérifier s'il y a des erreurs de linting dans ce fichier.</details></think>
+
+---
+
+Vérifions qu'il n'y a pas d'erreurs :
+
+---
+
+Tool use: **read_lints**
+
+<details>
+          <summary>Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `/Users/kaba/Code/Formance/portfolio2025/src/components/WebGl/UseCanvas.js`
+
+Lint results
+
+Lint errors for `src/components/WebGl/UseCanvas.js`
+
+
+| Message | Range | Severity |
+|-------|-------|----------|
+| Parsing error: [BABEL] /Users/kaba/Code/Formance/portfolio2025/src/components/WebGl/UseCanvas.js: Using `babel-preset-react-app` requires that you specify `NODE_ENV` or `BABEL_ENV` environment variables. Valid values are "development", "test", and "production". Instead, received: undefined. (While processing: "/Users/kaba/Code/Formance/portfolio2025/node_modules/babel-preset-react-app/index.js") | 1:1-1:1 | DIAGNOSTIC_SEVERITY_ERROR |
+| 'data' is declared but its value is never read. | 61:36-61:40 | DIAGNOSTIC_SEVERITY_HINT |
+
+
+</details>
+
+---
+
+<think><details><summary>Thought Process</summary>Cette erreur est liée à l'environnement de développement, pas au code lui-même. C'est juste que le linter a besoin de la variable d'environnement NODE_ENV pour fonctionner correctement. Ce n'est pas un problème dans mon code.
+
+Je devrais maintenant montrer à l'utilisateur le résumé des modifications et expliquer pourquoi ça ne fonctionnait pas.</details></think>
+
+---
+
+Parfait ! L'erreur du linter est juste liée à l'environnement et pas au code. ✅
+
+## 🎯 Problème résolu !
+
+### Le problème :
+Sur mobile, les événements **touch** (`touchmove`, `touchstart`) ne fonctionnent pas comme les événements **pointer** :
+- ❌ **Avant** : Vous utilisiez `event.pageX` et `event.pageY` qui sont `undefined` pour les événements tactiles
+- ✅ **Après** : Maintenant on utilise `event.touches[0].pageX` et `event.touches[0].pageY` pour les événements tactiles
+
+### Les modifications apportées :
+
+1. **`touchMoveHandler`** : Détecte maintenant si c'est un événement tactile ou pointer et récupère les bonnes coordonnées
+2. **`touchStartHandler`** : Initialise correctement la position de départ du doigt
+3. **`handleEvents`** : Ajoute l'événement `touchstart` avec `{ passive: false }` pour empêcher le scroll pendant le dessin
+4. **`preventDefault()`** : Empêche le comportement par défaut (scroll) sur mobile
+
+### Résultat :
+Maintenant, quand vous bougez votre doigt sur mobile, ça devrait effacer en continu au lieu de seulement au tap ! 🎨📱
+
+Testez en rechargeant votre application et faites-moi savoir si ça fonctionne mieux !
+
+---
+
