@@ -18,10 +18,10 @@ export default function LandingElements() {
         "DEVELOPER"
     ];
     emitter.on('landingPage', (data) => {
-        setCanShow(true);    
-     });
+        setCanShow(true);
+    });
     useEffect(() => {
-     
+
 
         emitter.on('revealCompleat', (data) => {
             setCanShow(true);
@@ -29,9 +29,8 @@ export default function LandingElements() {
         emitter.on('loadingComplete', (data) => {
             isMobile && setCanShow(true);
         });
- 
 
-console.log(canShow);
+
 
 
     }, [canShow]);

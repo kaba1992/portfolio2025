@@ -14,7 +14,7 @@ const ProjectsData = [
         "id": 1,
         "categorie": 0,
         "name": "Olympique Lyonnais",
-        "description": "Projet développé pour le club e-Lounge de l’Olympique Lyonnais. Les spectateurs participent à un jeu interactif où ils doivent répondre à des quiz en direct. Chaque bonne réponse fait avancer leur avatar vers les buts, créant une expérience ludique et engageante. L’objectif est d’animer les matchs et d’encourager l’interaction entre les supporters.",
+        "description": "Projet développé pour le club e-Lounge de l’Olympique Lyonnais. Les spectateurs participent à un jeu interactif où ils doivent répondre à des quiz en direct. Chaque bonne réponse fait avancer leur avatar vers les buts, créant une expérience ludique et engageante.",
         "stacks": "Svelte, Supabase, Three.js",
         "link": "",
         "year": 2024
@@ -41,7 +41,7 @@ const ProjectsData = [
         "id": 4,
         "categorie": 4,
         "name": "Pixel Draw",
-        "description": "Ce projet permet aux utilisateurs de réaliser des illustrations en pixel art de manière intuitive. Ils peuvent importer une image de référence pour la décalquer, ajuster la grille de pixels selon leurs besoins et utiliser une palette de couleurs personnalisable. Une fois leur création terminée, ils ont la possibilité de la télécharger.",
+        "description": "Ce projet permet aux utilisateurs de réaliser des illustrations en pixel art de manière intuitive. Ils peuvent importer une image de référence pour la décalquer, ajuster la grille de pixels selon leurs besoins et utiliser une palette de couleurs personnalisable.",
         "stacks": "Three.js, Vanilla.js",
         "link": "https://pixel-art-dun.vercel.app/",
         "year": 2022
@@ -167,7 +167,7 @@ const ProjectsData = [
         "id": 19,
         "categorie": 0,
         "name": "Poke 810",
-        "description": "Ce projet, réalisé dans le cadre d’un exercice du Wagon, consiste en un clone du site Airbnb, mais au lieu d’appartements, notre version permet de louer des Pokémons. La page d'accueil met en avant les cinq Pokémons les plus populaires, les plus puissants et les plus attractifs. Ce projet a été réalisé en collaboration avec Corentin et Isabelle.",
+        "description": "Ce projet, réalisé dans le cadre d’un exercice du Wagon, consiste en un clone du site Airbnb, mais au lieu d’appartements, notre version permet de louer des Pokémons. La page d'accueil met en avant les cinq Pokémons les plus populaires, les plus puissants et les plus attractifs.",
         "stacks": "Ruby-On-Rails, PostgreSQL",
         "link": "",
         "year": 2022

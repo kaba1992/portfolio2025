@@ -4,7 +4,7 @@ import { Lightformer, Environment, OrbitControls, Stats } from "@react-three/dre
 import { Canvas } from "@react-three/fiber"
 
 export default function Experience() {
-   
+
 
     return (
 
@@ -22,7 +22,7 @@ export default function Experience() {
             }}
             shadows
             camera={{ position: [0, 0, -5], fov: 50 }}>
-            <Discard />
+            {/* <Discard /> */}
             <Transition />
             {/* <Stats /> */}
         </Canvas>

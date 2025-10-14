@@ -2,6 +2,17 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        md: '3rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
+    },
     extend: {
       boxShadow: {
         'categorieBox': '0 35px 60px -15px rgba(1, 1, 1, 0.7)',
@@ -18,7 +29,7 @@ module.exports = {
       },
       fontFamily: {
         'titre': ['Notable', 'sans-serif'],
-    
+
       },
     },
   },

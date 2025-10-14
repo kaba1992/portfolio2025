@@ -1,11 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, NavLink, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import ProjectsData from '../components/Utils/Data';
-import Project from './Project';
 import emitter from '../components/Utils/EventEmitter';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap'
 import { useBlurTransition } from '../components/Utils/useBlurTransition';
 
 export default function Projects() {
@@ -44,18 +41,20 @@ export default function Projects() {
     useBlurTransition(isLoaded, container, '.category-item')
 
     return (
-        <div className='flex flex-col items-center md:justify-center mt-10 md:mt-0 md:w-[1300px] w-[300px] h-full gap-6 md:gap-10 font-bold text-left text-white -z-1' ref={container}>
-            {
-                projects.map((project, index) => {
-                    return <div key={index + project.name} className='flex justify-between items-center w-full  category-item  blur-[100px] relative before:absolute before:h-0.5 before:w-full before:bg-white before:-bottom-5'>
-                        <p onClick={() => navigateTo(index, catId)}
-                            className=" text-2xl cursor-pointer hover:text-blue-400 md:text-5xl w-3/4  md:w-[600px]
-                    ">{project && project.name.toUpperCase()}</p>
-                        <span className="text-2xl cursor-pointer hover:text-blue-400 md:text-5xl " >{index + 1}</span>
+        <div className='flex flex-col items-center w-full h-full overflow-y-auto overflow-x-hidden scrollbar-hide pt-40 pb-20 md:py-0 md:justify-center'>
+            <div className='flex flex-col items-center w-[90%] md:w-[85%] lg:w-[1100px] xl:w-[1300px] max-w-[1400px] gap-6 md:gap-10 font-bold text-left text-white -z-1 px-4 md:px-0 pb-20' ref={container}>
+                {
+                    projects.map((project, index) => {
+                        return <div key={index + project.name} className='flex justify-between items-center w-full category-item blur-[100px] relative before:absolute before:h-0.5 before:w-full before:bg-white before:-bottom-5'>
+                            <p onClick={() => navigateTo(index, catId)}
+                                className="text-xl sm:text-2xl md:text-4xl lg:text-5xl cursor-pointer hover:text-blue-400 flex-1 pr-4 break-words"
+                            >{project && project.name.toUpperCase()}</p>
+                            <span className="text-xl sm:text-2xl md:text-4xl lg:text-5xl cursor-pointer hover:text-blue-400 flex-shrink-0">{index + 1}</span>
 
-                    </div>
-                })
-            }
+                        </div>
+                    })
+                }
+            </div>
         </div>
     )
 }

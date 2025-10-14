@@ -1,9 +1,6 @@
-import Spline from '@splinetool/react-spline';
+
 import React, { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame } from "@react-three/fiber"
-import { Html } from "@react-three/drei"
 import LandingElements from './LandingElements';
-import gsap from 'gsap';
 
 export default function LandingPage({ showElements }) {
   const sphere = useRef();
@@ -30,7 +27,7 @@ export default function LandingPage({ showElements }) {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       border: '1px solid white',
-      
+
     }}
       ref={landingPage}
     >

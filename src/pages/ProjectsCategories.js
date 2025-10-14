@@ -40,7 +40,7 @@ export default function ProjectsCategories() {
     }
     emitter.on('loadingComplete', (data) => {
         setIsLoaded(true)
-    
+
     });
     useBlurTransition(isLoaded, container, '.category')
     return (
@@ -51,7 +51,7 @@ export default function ProjectsCategories() {
                 <h1 className="mb-8 md:text-6xl text-4xl font-bold text-white font-titre">Projects</h1>
                 <ul className="flex flex-col md:items-start items-center justify-start w-full h-full gap-6 text-4xl font-bold text-white cursor-pointer pointer-events-auto" ref={container}>
                     {categories.map((categorie, index) => {
-                        return <div onClick={() => navigateTo(index)} key={index + categorie && categorie} className="category hover:text-blue-400 categories blur-[100px] ">{categorie && categorie}</div>
+                        return <li onClick={() => navigateTo(index)} key={index + categorie && categorie} className="category hover:text-blue-400 user-select-none categories blur-[100px] ">{categorie && categorie}</li>
                     })}
                 </ul>
             </div>
