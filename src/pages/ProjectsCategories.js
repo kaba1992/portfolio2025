@@ -12,7 +12,10 @@ export default function ProjectsCategories() {
     const container = useRef();
     const navigate = useNavigate();
     const [canClick, setCanClick] = useState(true);
-    const [canNavigate, setCanNavigate] = useState(false);
+    // Vérifier si le reveal a déjà été complété dans cette session
+    const [canNavigate, setCanNavigate] = useState(() => {
+        return sessionStorage.getItem('revealCompleted') === 'true';
+    });
     const [isLoaded, setIsLoaded] = useState(false);
 
 
@@ -25,9 +28,34 @@ export default function ProjectsCategories() {
     ]
 
     useEffect(() => {
-        setIsLoaded(true)
+        setIsLoaded(true);
 
+        // Si le reveal a déjà été complété, activer immédiatement la navigation
+        if (sessionStorage.getItem('revealCompleted') === 'true') {
+            setCanNavigate(true);
+        }
     }, [])
+
+    useEffect(() => {
+        const handleLoadingComplete = (data) => {
+            setIsLoaded(true);
+        };
+
+        const handleRevealComplete = (data) => {
+            setCanNavigate(true);
+            // Sauvegarder dans sessionStorage pour les prochaines visites de la page
+            sessionStorage.setItem('revealCompleted', 'true');
+        };
+
+        emitter.on('loadingComplete', handleLoadingComplete);
+        emitter.on('revealCompleat', handleRevealComplete);
+
+        // Cleanup des écouteurs quand le composant est démonté
+        return () => {
+            emitter.off('loadingComplete', handleLoadingComplete);
+            emitter.off('revealCompleat', handleRevealComplete);
+        };
+    }, []);
 
     const navigateTo = async (index) => {
         if (!canClick || !canNavigate) return;
@@ -39,14 +67,6 @@ export default function ProjectsCategories() {
         await new Promise((resolve) => setTimeout(resolve, 1300));
         setCanClick(true);
     }
-    emitter.on('loadingComplete', (data) => {
-        setIsLoaded(true)
-
-    });
-    emitter.on('revealCompleat', (data) => {
-        setCanNavigate(true)
-
-    });
     useBlurTransition(isLoaded, container, '.category')
     return (
 

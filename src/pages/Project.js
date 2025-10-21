@@ -58,15 +58,15 @@ export default function Project() {
 
     let projectHref = projects[currentIndex]?.link
     const link = <a href={projectHref} target="_blank" className='text-xs text-left underline md:text-xl'>Visit</a>
-
+    const isVertical = catId === '1' || catId === '2'
     return (
-        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex container flex-col items-center md:justify-center justify-start gap-2 xl:gap-20 text-4xl text-white'>
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex container flex-col items-center md:justify-center justify-start gap-2 ${isVertical ? 'md:gap-10' : 'md:gap-20 '} text-4xl text-white`}>
             <div className='flex items-center justify-start w-full mr-4'>
                 <img onClick={handleGoBack} className="h-auto hover:text-blue-400 w-[40px] md:w-[80px]  cursor-pointer" src='/images/arrowsProject/prev.png' />
             </div>
             <div className='items-center md:items-start justify-center md:justify-start text-white  gap-5 md:gap-10 flex flex-col 
             xl:flex-row md:mt-2   md:mx-[0px] '>
-                <div className={`flex justify-center items-center w-full ${catId === '1' || catId === '2' ? 'max-w-[145px] md:max-w-[300px]' : 'max-w-[448px] md:max-w-[837px]'}`}>
+                <div className={`flex justify-center items-center w-1/3 ${isVertical ? 'md:w-1/5' : 'md:w-1/2'}`}>
                     <video autoPlay muted loop className='border-2 border-white w-full h-auto' ref={videoRef} poster={`/videos/${catId}/posters/${projects[currentIndex]?.name.replace(/\s/g, '')}.png`}>
                         <source src={`/videos/${catId}/${projects[currentIndex]?.name.replace(/\s/g, '')}.mp4`} type="video/mp4" />
                     </video>
