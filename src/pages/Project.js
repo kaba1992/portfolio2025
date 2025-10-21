@@ -64,9 +64,8 @@ export default function Project() {
             <div className='flex items-center justify-start w-full mr-4'>
                 <img onClick={handleGoBack} className="h-auto hover:text-blue-400 w-[40px] md:w-[80px]  cursor-pointer" src='/images/arrowsProject/prev.png' />
             </div>
-            <div className='items-center md:items-start justify-center md:justify-start text-white  gap-5 md:gap-10 flex flex-col 
-            xl:flex-row md:mt-2   md:mx-[0px] '>
-                <div className={`flex justify-center items-center w-1/3 ${isVertical ? 'md:w-1/5' : 'md:w-1/2'}`}>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 place-items-center'>
+                <div className={`flex justify-center items-center ${isVertical ? 'w-1/2' : 'w-full'}`}>
                     <video autoPlay muted loop className='border-2 border-white w-full h-auto' ref={videoRef} poster={`/videos/${catId}/posters/${projects[currentIndex]?.name.replace(/\s/g, '')}.png`}>
                         <source src={`/videos/${catId}/${projects[currentIndex]?.name.replace(/\s/g, '')}.mp4`} type="video/mp4" />
                     </video>
